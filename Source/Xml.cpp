@@ -23,17 +23,29 @@ void Xml::ConvertBufferToXml(const ReaderFile& reader)
 
 	while (true)
 	{
+		// Each word translate of file .po have the format of:
+		// - msgid: for the origin
+		// - msgstr: for the translate
+
+		// We want take all the string that begin in {msgid } and finalize in {msgstr}.
+		// This string will be the origin.
 		positionStartOrigin = buffer.find("msgid", positionStartOrigin);
-		positionEndOrigin = buffer.find('\n', positionStartOrigin);
+		positionEndOrigin = buffer.find("msgstr", positionStartOrigin);
 
 		// End of file
 		if (positionStartOrigin == std::string::npos)
 		{
+			// Exit of loop.
 			break;
 		}
 
-		std::string origin = buffer.substr(positionStartOrigin, positionEndOrigin - positionStartOrigin);
+		// Get the origin string
+		// - {end - start} mark the length of string origin
+		// - {length - 2} for avoid add the sequence {\n} to string
+		std::string origin = buffer.substr(positionStartOrigin, positionEndOrigin - positionStartOrigin - 2);
 
+		// We want take all the string that begin in {msgstr } and finalize in {msgid}.
+		// This string will be the translate.
 		positionStartTranslate = buffer.find("msgstr", positionStartTranslate);
 		positionEndTranslate = buffer.find("msgid", positionStartTranslate);
 
