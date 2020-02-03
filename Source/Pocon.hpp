@@ -23,7 +23,7 @@ namespace Pocon
 
 		std::string directoryName = "None";
 
-		std::vector<std::string> arguments;
+		std::vector <std::string> arguments;
 
 	public:
 

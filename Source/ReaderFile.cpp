@@ -22,7 +22,7 @@ void Pocon::ReaderFile::ReadFile(const std::string& _filename)
 
 		stream.close();
 
-		delete [] bufferChar;
+		delete[] bufferChar;
 	}
 	else
 	{

@@ -13,7 +13,7 @@ void Xml::ConvertBufferToXml(const ReaderFile& reader)
 	WordTranslate word;
 
 	// Dictionary of words translate.
-	std::vector<WordTranslate> dictionary;
+	std::vector <WordTranslate> dictionary;
 
 	int positionStartOrigin = 0;
 	int positionEndOrigin = 0;
@@ -21,7 +21,7 @@ void Xml::ConvertBufferToXml(const ReaderFile& reader)
 	int positionStartTranslate = 0;
 	int positionEndTranslate = 0;
 
-	while(true)
+	while (true)
 	{
 		positionStartOrigin = buffer.find("msgid", positionStartOrigin);
 		positionEndOrigin = buffer.find('\n', positionStartOrigin);
@@ -56,7 +56,7 @@ void Xml::ConvertBufferToXml(const ReaderFile& reader)
 	ClearDictionaryOfTagsUnused(dictionary);
 
 	// The dictionary content the properties of file. See files .po
-	std::vector<PropertyFile> properties = ExtractPropertiesOfFile(dictionary);
+	std::vector <PropertyFile> properties = ExtractPropertiesOfFile(dictionary);
 	// The dictionary content the license of file. See files .po
 	std::string license = ExtractLicenseOfFile(dictionary);
 	// The dictionary content the translator credits of file. See files .po
@@ -65,7 +65,7 @@ void Xml::ConvertBufferToXml(const ReaderFile& reader)
 
 void Xml::ClearDictionaryOfTagsUnused(std::vector <WordTranslate>& _dictionary)
 {
-	for(WordTranslate& word : _dictionary)
+	for (WordTranslate& word : _dictionary)
 	{
 		ClearWordOfTagsUnused(word);
 	}
@@ -147,7 +147,7 @@ std::vector <PropertyFile> Xml::ExtractPropertiesOfFile(std::vector <WordTransla
 	// Property of file.
 	PropertyFile property;
 	// Here, saved the properties of file that will be returned.
-	std::vector<PropertyFile> properties;
+	std::vector <PropertyFile> properties;
 
 	// Mark the point where we find the character {:}
 	int positionStart = 0;
@@ -190,8 +190,7 @@ std::vector <PropertyFile> Xml::ExtractPropertiesOfFile(std::vector <WordTransla
 		// - positionStart start to find the character {:} then of any character {\n}
 		positionEnd += 2;
 		positionStart = propertiesInRaw.find(':', positionEnd);
-	}
-	while(positionStart != std::string::npos);
+	} while (positionStart != std::string::npos);
 
 	return properties;
 }
@@ -213,7 +212,7 @@ std::string Xml::ExtractLicenseOfFile(std::vector <WordTranslate>& _dictionary)
 
 std::vector <std::string> Xml::ExtractTranslatorCreditsOfFile(std::vector <WordTranslate>& _dictionary)
 {
-	std::vector<std::string> translatorCredits;
+	std::vector <std::string> translatorCredits;
 
 	// Get the string with the translators.
 	std::string translators = _dictionary.at(0).second;
@@ -242,19 +241,22 @@ std::vector <std::string> Xml::ExtractTranslatorCreditsOfFile(std::vector <WordT
 		return translatorCredits;
 	}
 
-	while(true)
+	while (true)
 	{
+		// startLine mark the start of string
+		// {position - startLine} mark the length of string
 		translatorCredits.push_back(translators.substr(startLine, position - startLine));
 		// Advance to next line
 		position += 1;
 		// Remember the end of line and the start of the next line.
+		// Is need add 1, for avoid add the character {n}
 		startLine = position + 1;
 		position = translators.find("\\n", position);
 
 		// The ultimate translator not finalize with the character {\n}
 		if (position == std::string::npos)
 		{
-			// As not exit an character {\n}, added the substring to end.
+			// As not exits an character {\n}, the substring got to end.
 			translatorCredits.push_back(translators.substr(startLine));
 			// Exit loop.
 			break;

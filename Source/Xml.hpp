@@ -11,11 +11,11 @@ namespace Pocon
 
 	// First = Origin String
 	// Second = Translate String of Origin
-	using WordTranslate = std::pair<std::string, std::string>;
+	using WordTranslate = std::pair <std::string, std::string>;
 
 	// First = Name Property
 	// Second = Value of Property
-	using PropertyFile = std::pair<std::string, std::string>;
+	using PropertyFile = std::pair <std::string, std::string>;
 
 	class Xml
 	{
@@ -30,11 +30,11 @@ namespace Pocon
 
 		static void RemoveStringInString(std::string& _string, const std::string& _coincidence);
 
-		static std::string ExtractLicenseOfFile(std::vector<WordTranslate>& _dictionary);
+		static std::string ExtractLicenseOfFile(std::vector <WordTranslate>& _dictionary);
 
 		static std::vector <std::string> ExtractTranslatorCreditsOfFile(std::vector <WordTranslate>& _dictionary);
 
-		static std::vector <PropertyFile> ExtractPropertiesOfFile(std::vector<WordTranslate>& _dictionary);
+		static std::vector <PropertyFile> ExtractPropertiesOfFile(std::vector <WordTranslate>& _dictionary);
 
 	public:
 

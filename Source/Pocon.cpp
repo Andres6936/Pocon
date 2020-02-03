@@ -65,7 +65,7 @@ bool Pocon::Pocon::IsArgumentsEmpty() const
 
 std::string Pocon::Pocon::GetFilenameFromArguments() const
 {
-	for (const std::string & argument : arguments)
+	for (const std::string& argument : arguments)
 	{
 		int position = argument.find('=');
 
@@ -87,7 +87,7 @@ std::string Pocon::Pocon::GetFilenameFromArguments() const
 
 std::string Pocon::Pocon::GetDirectoryNameFromArguments() const
 {
-	for (const std::string & argument : arguments)
+	for (const std::string& argument : arguments)
 	{
 		int position = argument.find('=');
 
