@@ -10,7 +10,21 @@ LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/Library)
 
 ADD_EXECUTABLE(Pocon Main.cpp
         Source/ReaderFile.cpp
-        Source/ReaderFile.hpp Source/Pocon.cpp Source/Pocon.hpp Source/IInterfaceGraphic.hpp Source/CommandLine.cpp Source/CommandLine.hpp Source/Exception.hpp Source/FileNotFoundException.hpp Source/Keyboard/Keyboard.cpp Source/Keyboard/Keyboard.hpp Source/Keyboard/KeyCode.hpp Source/Xml.cpp Source/Xml.hpp Source/WriterFile.cpp Source/WriterFile.hpp)
+        Source/ReaderFile.hpp
+        Source/Pocon.cpp
+        Source/Pocon.hpp
+        Source/IInterfaceGraphic.hpp
+        Source/CommandLine.cpp
+        Source/CommandLine.hpp
+        Source/Exception.hpp
+        Source/FileNotFoundException.hpp
+        Source/Keyboard/Keyboard.cpp
+        Source/Keyboard/Keyboard.hpp
+        Source/Keyboard/KeyCode.hpp
+        Source/Xml.cpp
+        Source/Xml.hpp
+        Source/WriterFile.cpp
+        Source/WriterFile.hpp)
 
 # Load and link the library TiXml
 TARGET_LINK_LIBRARIES(Pocon TiXml)
