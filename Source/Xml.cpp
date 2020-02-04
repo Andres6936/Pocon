@@ -1,4 +1,5 @@
 #include "Xml.hpp"
+#include "WriterFile.hpp"
 
 using namespace Pocon;
 
@@ -73,6 +74,14 @@ void Xml::ConvertBufferToXml(const ReaderFile& reader)
 	std::string license = ExtractLicenseOfFile(dictionary);
 	// The dictionary content the translator credits of file. See files .po
 	std::vector <std::string> credits = ExtractTranslatorCreditsOfFile(dictionary);
+
+	WriterFile writer = WriterFile();
+	writer.SetPropertiesFile(properties);
+	writer.SetLicenseFile(license);
+	writer.SetCreditsFile(credits);
+
+	writer.CreateFileStruct();
+	writer.SaveFileInFormatXml();
 }
 
 void Xml::ClearDictionaryOfTagsUnused(std::vector <WordTranslate>& _dictionary)

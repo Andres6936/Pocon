@@ -5,6 +5,8 @@ PROJECT(Pocon)
 SET(CMAKE_CXX_STANDARD 20)
 SET(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+INCLUDE_DIRECTORIES(Include)
+
 # Find the librarys here
 LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/Library)
 
@@ -26,5 +28,5 @@ ADD_EXECUTABLE(Pocon Main.cpp
         Source/WriterFile.cpp
         Source/WriterFile.hpp)
 
-# Load and link the library TiXml
-TARGET_LINK_LIBRARIES(Pocon TiXml)
+# Load and link the library Ana for manage XML files
+TARGET_LINK_LIBRARIES(Pocon Ana)

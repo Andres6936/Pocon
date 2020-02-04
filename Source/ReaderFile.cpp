@@ -17,8 +17,13 @@ void Pocon::ReaderFile::ReadFile(const std::string& _filename)
 
 		stream.read(bufferChar, sizeFile);
 
-		// TODO: ¿Use of std::move?
-		buffer = std::string(bufferChar);
+		// Reserve the buffer for avoid unnecessary allocates
+		buffer.reserve(sizeFile);
+
+		for (int i = 0; i < sizeFile; ++i)
+		{
+			buffer.push_back(bufferChar[i]);
+		}
 
 		stream.close();
 
