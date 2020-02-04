@@ -31,6 +31,22 @@ namespace Pocon
 
 		Ana::Document document;
 
+		static void DeleteTheWordMoreShortOf(std::vector <std::string>& _vector);
+
+		static bool HaveThreeWords(const std::string& _word);
+
+		static bool HaveTwoWords(const std::string& _word);
+
+		static std::string GetNameShortForAElementOfThreeWords(const std::string& _basedIn);
+
+		static std::string GetNameShortForAElementOfTwoWords(const std::string& _basedIn);
+
+		static std::vector <std::string> ExtractAllWordsOfAString(const std::string& _string);
+
+		static std::vector <std::string> ExtractTheThreeWordsMoreLengthOf(const std::string& _word);
+
+		static std::vector <std::string> ExtractTheTwoWordsMoreLengthOf(const std::string& _word);
+
 	public:
 
 		// Construct

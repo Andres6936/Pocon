@@ -45,5 +45,159 @@ void Pocon::WriterFile::SetDictionary(const std::vector <WordTranslate>& _dictio
 
 void Pocon::WriterFile::CreateNameOfElements()
 {
+	for (WordTranslate& word : dictionary)
+	{
+		if (HaveThreeWords(word.first))
+		{
+			std::string nameElement = GetNameShortForAElementOfThreeWords(word.first);
+		}
+		else if (HaveTwoWords(word.first))
+		{
+			std::string nameElement = GetNameShortForAElementOfTwoWords(word.first);
+		}
+			// Only have an word
+		else
+		{
 
+		}
+	}
+}
+
+bool Pocon::WriterFile::HaveThreeWords(const std::string& _word)
+{
+	unsigned int countWord = 0;
+
+	int positionWhiteSpace = _word.find(' ');
+
+	if (positionWhiteSpace == std::string::npos)
+	{
+		return false;
+	}
+
+	while (positionWhiteSpace != std::string::npos)
+	{
+		countWord++;
+		positionWhiteSpace = _word.find(' ', positionWhiteSpace);
+
+		if (countWord >= 3)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool Pocon::WriterFile::HaveTwoWords(const std::string& _word)
+{
+	unsigned int countWord = 0;
+
+	int positionWhiteSpace = _word.find(' ');
+
+	if (positionWhiteSpace == std::string::npos)
+	{
+		return false;
+	}
+
+	while (positionWhiteSpace != std::string::npos)
+	{
+		countWord++;
+		positionWhiteSpace = _word.find(' ', positionWhiteSpace);
+
+		if (countWord >= 2)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+std::string Pocon::WriterFile::GetNameShortForAElementOfThreeWords(const std::string& _basedIn)
+{
+	std::vector <std::string> var = ExtractTheThreeWordsMoreLengthOf(_basedIn);
+
+	return std::string(var[0] + var[1] + var[2]);
+}
+
+std::string Pocon::WriterFile::GetNameShortForAElementOfTwoWords(const std::string& _basedIn)
+{
+	std::vector <std::string> var = ExtractTheTwoWordsMoreLengthOf(_basedIn);
+	return std::string(var[0] + var[1]);
+}
+
+std::vector <std::string> Pocon::WriterFile::ExtractAllWordsOfAString(const std::string& _string)
+{
+	std::vector <std::string> wordsInString;
+
+	int startWord = 0;
+	int positionWhiteSpace = 0;
+
+	while (true)
+	{
+		positionWhiteSpace = _string.find(' ', positionWhiteSpace);
+
+		wordsInString.push_back(_string.substr(startWord, positionWhiteSpace - startWord));
+
+		if (positionWhiteSpace == std::string::npos)
+		{
+			break;
+		}
+
+		// Advance to next word.
+		positionWhiteSpace++;
+		// Remember the start of word
+		startWord = positionWhiteSpace;
+	}
+
+	return wordsInString;
+}
+
+std::vector <std::string> Pocon::WriterFile::ExtractTheThreeWordsMoreLengthOf(const std::string& _word)
+{
+	std::vector <std::string> wordsInString = ExtractAllWordsOfAString(_word);
+
+	if (wordsInString.size() > 3)
+	{
+		while (wordsInString.size() > 3)
+		{
+			DeleteTheWordMoreShortOf(wordsInString);
+		}
+	}
+
+	return wordsInString;
+}
+
+std::vector <std::string> Pocon::WriterFile::ExtractTheTwoWordsMoreLengthOf(const std::string& _word)
+{
+	std::vector <std::string> wordsInString = ExtractAllWordsOfAString(_word);
+
+	if (wordsInString.size() > 2)
+	{
+		while (wordsInString.size() > 2)
+		{
+			DeleteTheWordMoreShortOf(wordsInString);
+		}
+	}
+
+	return wordsInString;
+}
+
+void Pocon::WriterFile::DeleteTheWordMoreShortOf(std::vector <std::string>& _vector)
+{
+	// We supposition, the first element is the word more short.
+
+	unsigned int indexOfWordMoreShort = 0;
+	unsigned int lengthOfWordMoreShort = _vector[0].size();
+
+	for (int i = 1; i < _vector.size(); ++i)
+	{
+		if (_vector[i].size() < lengthOfWordMoreShort)
+		{
+			indexOfWordMoreShort = i;
+			lengthOfWordMoreShort = _vector[i].size();
+		}
+	}
+
+	_vector.erase(_vector.begin() + indexOfWordMoreShort);
 }

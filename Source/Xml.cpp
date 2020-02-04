@@ -89,6 +89,7 @@ void Xml::ConvertBufferToXml(const ReaderFile& reader)
 	credits.clear();
 
 	writer.CreateFileStruct();
+	writer.CreateNameOfElements();
 	writer.SaveFileInFormatXml();
 }
 
