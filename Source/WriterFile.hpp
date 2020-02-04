@@ -8,6 +8,10 @@
 
 namespace Pocon
 {
+	// First = Origin String
+	// Second = Translate String of Origin
+	using WordTranslate = std::pair <std::string, std::string>;
+
 	// First = Name Property
 	// Second = Value of Property
 	using PropertyFile = std::pair <std::string, std::string>;
@@ -20,6 +24,8 @@ namespace Pocon
 		std::string licenseFile;
 
 		std::vector <std::string> creditsFile;
+
+		std::vector <WordTranslate> dictionary;
 
 		std::vector <PropertyFile> propertiesFile;
 
@@ -35,6 +41,8 @@ namespace Pocon
 
 		void CreateFileStruct();
 
+		void CreateNameOfElements();
+
 		void SaveFileInFormatXml();
 
 		// Setters
@@ -42,6 +50,8 @@ namespace Pocon
 		void SetLicenseFile(const std::string& _licenseFile);
 
 		void SetCreditsFile(const std::vector <std::string>& _creditsFile);
+
+		void SetDictionary(const std::vector <WordTranslate>& _dictionary);
 
 		void SetPropertiesFile(const std::vector <PropertyFile>& _propertiesFile);
 

@@ -26,6 +26,8 @@ namespace Pocon
 
 		static void ClearWordOfTagsUnused(WordTranslate& _word);
 
+		static void ClearWordOfUnderscore(WordTranslate& _word);
+
 		static void RemoveCharInString(std::string& _string, char _char);
 
 		static void RemoveStringInString(std::string& _string, const std::string& _coincidence);

@@ -76,9 +76,17 @@ void Xml::ConvertBufferToXml(const ReaderFile& reader)
 	std::vector <std::string> credits = ExtractTranslatorCreditsOfFile(dictionary);
 
 	WriterFile writer = WriterFile();
+	writer.SetDictionary(dictionary);
 	writer.SetPropertiesFile(properties);
 	writer.SetLicenseFile(license);
 	writer.SetCreditsFile(credits);
+
+	// Clear for free memory.
+	// Note: WriterFile save an copy of each of items.
+	dictionary.clear();
+	properties.clear();
+	license.clear();
+	credits.clear();
 
 	writer.CreateFileStruct();
 	writer.SaveFileInFormatXml();
@@ -89,6 +97,7 @@ void Xml::ClearDictionaryOfTagsUnused(std::vector <WordTranslate>& _dictionary)
 	for (WordTranslate& word : _dictionary)
 	{
 		ClearWordOfTagsUnused(word);
+		ClearWordOfUnderscore(word);
 	}
 }
 
@@ -285,4 +294,25 @@ std::vector <std::string> Xml::ExtractTranslatorCreditsOfFile(std::vector <WordT
 	}
 
 	return translatorCredits;
+}
+
+void Xml::ClearWordOfUnderscore(WordTranslate& _word)
+{
+	// With security, if the string origin content an character {_}
+	// its translate too will content an character {_}
+
+	int positionOrigin = _word.first.find('_');
+	int positionTranslate = _word.second.find('_');
+
+	if (positionOrigin != std::string::npos)
+	{
+		// Replace only an character
+		_word.first.replace(positionOrigin, 1, "");
+	}
+
+	if (positionTranslate != std::string::npos)
+	{
+		// Replace only an character
+		_word.second.replace(positionTranslate, 1, "");
+	}
 }

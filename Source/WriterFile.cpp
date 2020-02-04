@@ -27,6 +27,8 @@ void Pocon::WriterFile::CreateFileStruct()
 {
 	document.LinkEndChild(new Ana::Declaration("1.0", "UTF-8", ""));
 
+	// Write the license like comment
+	document.LinkEndChild(new Ana::Comment(licenseFile.c_str()));
 	// Create main element
 	document.LinkEndChild(new Ana::Element("LanguageInject"));
 }
@@ -34,4 +36,14 @@ void Pocon::WriterFile::CreateFileStruct()
 void Pocon::WriterFile::SaveFileInFormatXml()
 {
 	document.SaveFile("Out.xml");
+}
+
+void Pocon::WriterFile::SetDictionary(const std::vector <WordTranslate>& _dictionary)
+{
+	dictionary = _dictionary;
+}
+
+void Pocon::WriterFile::CreateNameOfElements()
+{
+
 }
