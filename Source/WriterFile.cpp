@@ -49,11 +49,11 @@ void Pocon::WriterFile::CreateNameOfElements()
 	{
 		if (HaveThreeWords(word.first))
 		{
-			std::string nameElement = GetNameShortForAElementOfThreeWords(word.first);
+			word.first = GetNameShortForAElementOfThreeWords(word.first);
 		}
 		else if (HaveTwoWords(word.first))
 		{
-			std::string nameElement = GetNameShortForAElementOfTwoWords(word.first);
+			word.first = GetNameShortForAElementOfTwoWords(word.first);
 		}
 			// Only have an word
 		else
@@ -74,10 +74,18 @@ bool Pocon::WriterFile::HaveThreeWords(const std::string& _word)
 		return false;
 	}
 
-	while (positionWhiteSpace != std::string::npos)
+	while (true)
 	{
 		countWord++;
 		positionWhiteSpace = _word.find(' ', positionWhiteSpace);
+
+		if (positionWhiteSpace == std::string::npos)
+		{
+			break;
+		}
+
+		// Advance to next white space
+		positionWhiteSpace++;
 
 		if (countWord >= 3)
 		{
@@ -90,32 +98,27 @@ bool Pocon::WriterFile::HaveThreeWords(const std::string& _word)
 
 bool Pocon::WriterFile::HaveTwoWords(const std::string& _word)
 {
-	unsigned int countWord = 0;
-
 	int positionWhiteSpace = _word.find(' ');
 
 	if (positionWhiteSpace == std::string::npos)
 	{
 		return false;
 	}
-
-	while (positionWhiteSpace != std::string::npos)
+	else
 	{
-		countWord++;
-		positionWhiteSpace = _word.find(' ', positionWhiteSpace);
-
-		if (countWord >= 2)
-		{
-			return true;
-		}
+		// An white space mean that exits more that two words.
+		return true;
 	}
-
-	return false;
 }
 
 std::string Pocon::WriterFile::GetNameShortForAElementOfThreeWords(const std::string& _basedIn)
 {
 	std::vector <std::string> var = ExtractTheThreeWordsMoreLengthOf(_basedIn);
+
+	for (std::string& s : var)
+	{
+		CapitalizeTheFirstLetterOf(s);
+	}
 
 	return std::string(var[0] + var[1] + var[2]);
 }
@@ -123,6 +126,12 @@ std::string Pocon::WriterFile::GetNameShortForAElementOfThreeWords(const std::st
 std::string Pocon::WriterFile::GetNameShortForAElementOfTwoWords(const std::string& _basedIn)
 {
 	std::vector <std::string> var = ExtractTheTwoWordsMoreLengthOf(_basedIn);
+
+	for (std::string& s : var)
+	{
+		CapitalizeTheFirstLetterOf(s);
+	}
+
 	return std::string(var[0] + var[1]);
 }
 
@@ -200,4 +209,9 @@ void Pocon::WriterFile::DeleteTheWordMoreShortOf(std::vector <std::string>& _vec
 	}
 
 	_vector.erase(_vector.begin() + indexOfWordMoreShort);
+}
+
+void Pocon::WriterFile::CapitalizeTheFirstLetterOf(std::string& _string)
+{
+	_string[0] = std::toupper(_string[0]);
 }

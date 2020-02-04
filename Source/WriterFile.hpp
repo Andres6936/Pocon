@@ -31,6 +31,8 @@ namespace Pocon
 
 		Ana::Document document;
 
+		static void CapitalizeTheFirstLetterOf(std::string& _string);
+
 		static void DeleteTheWordMoreShortOf(std::vector <std::string>& _vector);
 
 		static bool HaveThreeWords(const std::string& _word);
