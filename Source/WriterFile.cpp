@@ -59,10 +59,10 @@ void Pocon::WriterFile::CreateNameOfElements()
 		{
 			word.first = GetNameShortForAElementOfTwoWords(word.first);
 		}
-			// Only have an word and not is needed take actions
+			// Only have an word
 		else
 		{
-			continue;
+			FormatStringToCapitalize(word.first);
 		}
 	}
 }
@@ -249,5 +249,13 @@ void Pocon::WriterFile::CreateElementsAndTranslates()
 		auto element = new Ana::Element(word.first);
 		element->LinkEndChild(new Ana::Text(word.second));
 		var->LinkEndChild(element);
+	}
+}
+
+void Pocon::WriterFile::FormatStringToCapitalize(std::string& _string)
+{
+	for (unsigned long i = 1; i < _string.size(); i++)
+	{
+		_string[i] = std::tolower(_string[i]);
 	}
 }

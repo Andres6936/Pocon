@@ -32,6 +32,8 @@ namespace Pocon
 
 		Ana::Document document;
 
+		static void FormatStringToCapitalize(std::string& _string);
+
 		static void CapitalizeTheFirstLetterOf(std::string& _string);
 
 		static void DeleteTheWordMoreShortOf(std::vector <std::string>& _vector);
