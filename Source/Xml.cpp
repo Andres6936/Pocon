@@ -99,6 +99,7 @@ void Xml::ClearDictionaryOfTagsUnused(std::vector <WordTranslate>& _dictionary)
 	{
 		ClearWordOfTagsUnused(word);
 		ClearWordOfUnderscore(word);
+		ClearWordOfPointSign(word);
 	}
 }
 
@@ -107,17 +108,6 @@ void Xml::ClearWordOfTagsUnused(WordTranslate& _word)
 	std::string origin = _word.first;
 	std::string translate = _word.second;
 
-	// Delete the string {msgid }
-	RemoveStringInString(origin, "msgid ");
-	// Delete the string {msgstr }
-	RemoveStringInString(translate, "msgstr ");
-
-	// Delete all the characters {"}
-	RemoveCharInString(origin, '\"');
-	RemoveCharInString(translate, '\"');
-	// Delete all the characters {\n}
-	RemoveCharInString(translate, '\n');
-
 	int position = translate.find("#:");
 
 	if (position != std::string::npos)
@@ -125,6 +115,21 @@ void Xml::ClearWordOfTagsUnused(WordTranslate& _word)
 		// Delete the coincidence to end of string
 		translate.erase(position);
 	}
+
+	// Delete all the characters {"}
+	RemoveCharInString(origin, '\"');
+	RemoveCharInString(translate, '\"');
+	// Delete all the characters {\n}
+	RemoveCharInString(origin, '\n');
+	RemoveCharInString(translate, '\n');
+
+	// Delete the string {msgid }
+	RemoveStringInString(origin, "msgid ");
+	// Delete the string {msgstr }
+	RemoveStringInString(translate, "msgstr ");
+
+	// Delete all the string {\\n}
+	RemoveStringInString(origin, "\\n");
 
 	// Special Case, the string can be empty
 	if (origin.empty())
@@ -156,13 +161,10 @@ void Xml::RemoveStringInString(std::string& _string, const std::string& _coincid
 {
 	int position = _string.find(_coincidence);
 
-	if (position == std::string::npos)
-	{
-		return;
-	}
-	else
+	while (position != std::string::npos)
 	{
 		_string.erase(position, _coincidence.size());
+		position = _string.find(_coincidence);
 	}
 }
 
@@ -315,5 +317,28 @@ void Xml::ClearWordOfUnderscore(WordTranslate& _word)
 	{
 		// Replace only an character
 		_word.second.replace(positionTranslate, 1, "");
+	}
+}
+
+void Xml::ClearWordOfPointSign(WordTranslate& _word)
+{
+	// With security, if the string origin content an character {.}
+	// its translate too will content an character {.}
+
+	int positionOrigin = _word.first.find('.');
+	int positionTranslate = _word.second.find('.');
+
+	while (positionOrigin != std::string::npos)
+	{
+		// Replace only an character
+		_word.first.replace(positionOrigin, 1, "");
+		positionOrigin = _word.first.find('.');
+	}
+
+	while (positionTranslate != std::string::npos)
+	{
+		// Replace only an character
+		_word.second.replace(positionTranslate, 1, "");
+		positionTranslate = _word.second.find('.');
 	}
 }
