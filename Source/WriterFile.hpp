@@ -4,6 +4,7 @@
 #include "Ana/Ana.hpp"
 
 #include <string>
+#include <string_view>
 #include <vector>
 
 namespace Pocon
@@ -35,19 +36,19 @@ namespace Pocon
 
 		static void DeleteTheWordMoreShortOf(std::vector <std::string>& _vector);
 
-		static bool HaveThreeWords(const std::string& _word);
+		static bool HaveThreeWords(std::string_view _word);
 
-		static bool HaveTwoWords(const std::string& _word);
+		static bool HaveTwoWords(std::string_view _word);
 
-		static std::string GetNameShortForAElementOfThreeWords(const std::string& _basedIn);
+		static std::string GetNameShortForAElementOfThreeWords(std::string_view _basedIn);
 
-		static std::string GetNameShortForAElementOfTwoWords(const std::string& _basedIn);
+		static std::string GetNameShortForAElementOfTwoWords(std::string_view _basedIn);
 
-		static std::vector <std::string> ExtractAllWordsOfAString(const std::string& _string);
+		static std::vector <std::string> ExtractAllWordsOfAString(std::string_view _string);
 
-		static std::vector <std::string> ExtractTheThreeWordsMoreLengthOf(const std::string& _word);
+		static std::vector <std::string> ExtractTheThreeWordsMoreLengthOf(std::string_view _word);
 
-		static std::vector <std::string> ExtractTheTwoWordsMoreLengthOf(const std::string& _word);
+		static std::vector <std::string> ExtractTheTwoWordsMoreLengthOf(std::string_view _word);
 
 	public:
 

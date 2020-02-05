@@ -63,7 +63,7 @@ void Pocon::WriterFile::CreateNameOfElements()
 	}
 }
 
-bool Pocon::WriterFile::HaveThreeWords(const std::string& _word)
+bool Pocon::WriterFile::HaveThreeWords(std::string_view _word)
 {
 	unsigned int countWord = 0;
 
@@ -96,7 +96,7 @@ bool Pocon::WriterFile::HaveThreeWords(const std::string& _word)
 	return false;
 }
 
-bool Pocon::WriterFile::HaveTwoWords(const std::string& _word)
+bool Pocon::WriterFile::HaveTwoWords(std::string_view _word)
 {
 	int positionWhiteSpace = _word.find(' ');
 
@@ -111,7 +111,7 @@ bool Pocon::WriterFile::HaveTwoWords(const std::string& _word)
 	}
 }
 
-std::string Pocon::WriterFile::GetNameShortForAElementOfThreeWords(const std::string& _basedIn)
+std::string Pocon::WriterFile::GetNameShortForAElementOfThreeWords(std::string_view _basedIn)
 {
 	std::vector <std::string> var = ExtractTheThreeWordsMoreLengthOf(_basedIn);
 
@@ -123,7 +123,7 @@ std::string Pocon::WriterFile::GetNameShortForAElementOfThreeWords(const std::st
 	return std::string(var[0] + var[1] + var[2]);
 }
 
-std::string Pocon::WriterFile::GetNameShortForAElementOfTwoWords(const std::string& _basedIn)
+std::string Pocon::WriterFile::GetNameShortForAElementOfTwoWords(std::string_view _basedIn)
 {
 	std::vector <std::string> var = ExtractTheTwoWordsMoreLengthOf(_basedIn);
 
@@ -135,7 +135,7 @@ std::string Pocon::WriterFile::GetNameShortForAElementOfTwoWords(const std::stri
 	return std::string(var[0] + var[1]);
 }
 
-std::vector <std::string> Pocon::WriterFile::ExtractAllWordsOfAString(const std::string& _string)
+std::vector <std::string> Pocon::WriterFile::ExtractAllWordsOfAString(std::string_view _string)
 {
 	std::vector <std::string> wordsInString;
 
@@ -146,7 +146,8 @@ std::vector <std::string> Pocon::WriterFile::ExtractAllWordsOfAString(const std:
 	{
 		positionWhiteSpace = _string.find(' ', positionWhiteSpace);
 
-		wordsInString.push_back(_string.substr(startWord, positionWhiteSpace - startWord));
+		// Is necessary make the cast for use push_back
+		wordsInString.push_back((std::string)_string.substr(startWord, positionWhiteSpace - startWord));
 
 		if (positionWhiteSpace == std::string::npos)
 		{
@@ -162,7 +163,7 @@ std::vector <std::string> Pocon::WriterFile::ExtractAllWordsOfAString(const std:
 	return wordsInString;
 }
 
-std::vector <std::string> Pocon::WriterFile::ExtractTheThreeWordsMoreLengthOf(const std::string& _word)
+std::vector <std::string> Pocon::WriterFile::ExtractTheThreeWordsMoreLengthOf(std::string_view _word)
 {
 	std::vector <std::string> wordsInString = ExtractAllWordsOfAString(_word);
 
@@ -177,7 +178,7 @@ std::vector <std::string> Pocon::WriterFile::ExtractTheThreeWordsMoreLengthOf(co
 	return wordsInString;
 }
 
-std::vector <std::string> Pocon::WriterFile::ExtractTheTwoWordsMoreLengthOf(const std::string& _word)
+std::vector <std::string> Pocon::WriterFile::ExtractTheTwoWordsMoreLengthOf(std::string_view _word)
 {
 	std::vector <std::string> wordsInString = ExtractAllWordsOfAString(_word);
 
