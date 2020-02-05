@@ -185,49 +185,31 @@ std::vector <std::string> Pocon::WriterFile::ExtractAllWordsOfAString(std::strin
 	return wordsInString;
 }
 
-std::vector <std::string> Pocon::WriterFile::ExtractTheFourWordsMoreLengthOf(std::string_view _word)
+std::vector <std::string> Pocon::WriterFile::ExtractTheXWordsMoreLengthOf(std::string_view _word, const unsigned int x)
 {
 	std::vector <std::string> wordsInString = ExtractAllWordsOfAString(_word);
 
-	if (wordsInString.size() > 4)
+	while (wordsInString.size() > x)
 	{
-		while (wordsInString.size() > 4)
-		{
-			DeleteTheWordMoreShortOf(wordsInString);
-		}
+		DeleteTheWordMoreShortOf(wordsInString);
 	}
 
 	return wordsInString;
+}
+
+std::vector <std::string> Pocon::WriterFile::ExtractTheFourWordsMoreLengthOf(std::string_view _word)
+{
+	return ExtractTheXWordsMoreLengthOf(_word, 4);
 }
 
 std::vector <std::string> Pocon::WriterFile::ExtractTheThreeWordsMoreLengthOf(std::string_view _word)
 {
-	std::vector <std::string> wordsInString = ExtractAllWordsOfAString(_word);
-
-	if (wordsInString.size() > 3)
-	{
-		while (wordsInString.size() > 3)
-		{
-			DeleteTheWordMoreShortOf(wordsInString);
-		}
-	}
-
-	return wordsInString;
+	return ExtractTheXWordsMoreLengthOf(_word, 3);
 }
 
 std::vector <std::string> Pocon::WriterFile::ExtractTheTwoWordsMoreLengthOf(std::string_view _word)
 {
-	std::vector <std::string> wordsInString = ExtractAllWordsOfAString(_word);
-
-	if (wordsInString.size() > 2)
-	{
-		while (wordsInString.size() > 2)
-		{
-			DeleteTheWordMoreShortOf(wordsInString);
-		}
-	}
-
-	return wordsInString;
+	return ExtractTheXWordsMoreLengthOf(_word, 2);
 }
 
 void Pocon::WriterFile::DeleteTheWordMoreShortOf(std::vector <std::string>& _vector)

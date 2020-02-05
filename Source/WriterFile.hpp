@@ -52,6 +52,8 @@ namespace Pocon
 
 		static std::vector <std::string> ExtractAllWordsOfAString(std::string_view _string);
 
+		static std::vector <std::string> ExtractTheXWordsMoreLengthOf(std::string_view _word, unsigned int x);
+
 		static std::vector <std::string> ExtractTheFourWordsMoreLengthOf(std::string_view _word);
 
 		static std::vector <std::string> ExtractTheThreeWordsMoreLengthOf(std::string_view _word);
