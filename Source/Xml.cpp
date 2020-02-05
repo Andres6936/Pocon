@@ -123,14 +123,6 @@ void Xml::ClearWordOfTagsUnused(WordTranslate& _word)
 	std::string origin = _word.first;
 	std::string translate = _word.second;
 
-	int position = translate.find("#:");
-
-	if (position != std::string::npos)
-	{
-		// Delete the coincidence to end of string
-		translate.erase(position);
-	}
-
 	// Delete all the characters {"}
 	RemoveCharInString(origin, '\"');
 	RemoveCharInString(translate, '\"');
