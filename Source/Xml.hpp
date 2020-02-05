@@ -28,7 +28,15 @@ namespace Pocon
 
 		static void ClearWordOfUnderscore(WordTranslate& _word);
 
-		static void ClearWordOfPointSign(WordTranslate& _word);
+		static void ClearStringOfParenthesis(std::string& _string);
+
+		static void ClearStringOfApostrophe(std::string& _string);
+
+		static void ClearStringOfDoubleLine(std::string& _string);
+
+		static void ClearStringOfDecimalPoint(std::string& _string);
+
+		static void ClearStringOfColon(std::string& _string);
 
 		static void RemoveCharInString(std::string& _string, char _char);
 

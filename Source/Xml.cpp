@@ -100,7 +100,12 @@ void Xml::ClearDictionaryOfTagsUnused(std::vector <WordTranslate>& _dictionary)
 	{
 		ClearWordOfTagsUnused(word);
 		ClearWordOfUnderscore(word);
-		ClearWordOfPointSign(word);
+		// Only deleted the character {.} of origin
+		ClearStringOfColon(word.first);
+		ClearStringOfDoubleLine(word.first);
+		ClearStringOfApostrophe(word.first);
+		ClearStringOfParenthesis(word.first);
+		ClearStringOfDecimalPoint(word.first);
 	}
 }
 
@@ -302,44 +307,33 @@ std::vector <std::string> Xml::ExtractTranslatorCreditsOfFile(std::vector <WordT
 
 void Xml::ClearWordOfUnderscore(WordTranslate& _word)
 {
-	// With security, if the string origin content an character {_}
-	// its translate too will content an character {_}
-
-	int positionOrigin = _word.first.find('_');
-	int positionTranslate = _word.second.find('_');
-
-	if (positionOrigin != std::string::npos)
-	{
-		// Replace only an character
-		_word.first.replace(positionOrigin, 1, "");
-	}
-
-	if (positionTranslate != std::string::npos)
-	{
-		// Replace only an character
-		_word.second.replace(positionTranslate, 1, "");
-	}
+	RemoveCharInString(_word.first, '_');
+	RemoveCharInString(_word.second, '_');
 }
 
-void Xml::ClearWordOfPointSign(WordTranslate& _word)
+void Xml::ClearStringOfDecimalPoint(std::string& _string)
 {
-	// With security, if the string origin content an character {.}
-	// its translate too will content an character {.}
-
-	int positionOrigin = _word.first.find('.');
-	int positionTranslate = _word.second.find('.');
-
-	while (positionOrigin != std::string::npos)
-	{
-		// Replace only an character
-		_word.first.replace(positionOrigin, 1, "");
-		positionOrigin = _word.first.find('.');
-	}
-
-	while (positionTranslate != std::string::npos)
-	{
-		// Replace only an character
-		_word.second.replace(positionTranslate, 1, "");
-		positionTranslate = _word.second.find('.');
-	}
+	RemoveCharInString(_string, '.');
 }
+
+void Xml::ClearStringOfApostrophe(std::string& _string)
+{
+	RemoveCharInString(_string, '\'');
+}
+
+void Xml::ClearStringOfDoubleLine(std::string& _string)
+{
+	RemoveStringInString(_string, "--");
+}
+
+void Xml::ClearStringOfParenthesis(std::string& _string)
+{
+	RemoveCharInString(_string, '(');
+	RemoveCharInString(_string, ')');
+}
+
+void Xml::ClearStringOfColon(std::string& _string)
+{
+	RemoveCharInString(_string, ':');
+}
+
