@@ -55,10 +55,10 @@ void Pocon::WriterFile::CreateNameOfElements()
 		{
 			word.first = GetNameShortForAElementOfTwoWords(word.first);
 		}
-			// Only have an word
+			// Only have an word and not is needed take actions
 		else
 		{
-
+			continue;
 		}
 	}
 }
@@ -215,4 +215,20 @@ void Pocon::WriterFile::DeleteTheWordMoreShortOf(std::vector <std::string>& _vec
 void Pocon::WriterFile::CapitalizeTheFirstLetterOf(std::string& _string)
 {
 	_string[0] = std::toupper(_string[0]);
+}
+
+void Pocon::WriterFile::CreateElementsAndTranslates()
+{
+	// Get the last element added in the document,
+	// it last element must be a Element called LanguageInject,
+	// from this point, we must be added all elements that is
+	// in the dictionary.
+	auto var = document.LastChild();
+
+	for (const WordTranslate& word : dictionary)
+	{
+		auto element = new Ana::Element(word.first);
+		element->LinkEndChild(new Ana::Text(word.second));
+		var->LinkEndChild(element);
+	}
 }

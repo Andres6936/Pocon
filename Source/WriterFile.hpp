@@ -62,6 +62,8 @@ namespace Pocon
 
 		void CreateNameOfElements();
 
+		void CreateElementsAndTranslates();
+
 		void SaveFileInFormatXml();
 
 		// Setters
