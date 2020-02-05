@@ -422,5 +422,28 @@ void Xml::RemoveCommentsOfBuffer(std::string& _buffer)
 		// Advance to next comment
 		positionStartComment = _buffer.find("\n#");
 	}
+
+	// A special case that can happen, is that the file .po begin with a
+	// comment, thus the first character of document will be number
+	// sign {#}, this comment not will be removed for the code above,
+	// and needed of an code new that manage this case.
+	RemoveCommentsOfBufferInFirstLine(_buffer);
+}
+
+void Xml::RemoveCommentsOfBufferInFirstLine(std::string& _buffer)
+{
+	// If the first character of buffer is an comment {#}, remove
+	// the comment to find an character of new line {\n}
+	// - The character of new line too will be removed.
+	if (_buffer.at(0) == '#')
+	{
+		// Remember that an comment and the any file always finalize
+		// with an character of new line {\n}
+		// - Not is possible get an std::string::npos as return of find method
+		long positionNewLine = _buffer.find('\n');
+
+		// Deleted all line completely, include the character of new line {\n}
+		_buffer.erase(0, positionNewLine + 1);
+	}
 }
 

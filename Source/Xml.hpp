@@ -44,6 +44,8 @@ namespace Pocon
 
 		static void ClearStringOfColon(std::string& _string);
 
+		static void RemoveCommentsOfBufferInFirstLine(std::string& _buffer);
+
 		static void RemoveCommentsOfBuffer(std::string& _buffer);
 
 		static void RemoveCharInString(std::string& _string, char _char);
