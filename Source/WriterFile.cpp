@@ -65,7 +65,7 @@ void Pocon::WriterFile::CreateNameOfElements()
 
 bool Pocon::WriterFile::HaveThreeWords(std::string_view _word)
 {
-	unsigned int countWord = 0;
+	unsigned int countOfWhitespace = 0;
 
 	int positionWhiteSpace = _word.find(' ');
 
@@ -76,7 +76,7 @@ bool Pocon::WriterFile::HaveThreeWords(std::string_view _word)
 
 	while (true)
 	{
-		countWord++;
+		countOfWhitespace++;
 		positionWhiteSpace = _word.find(' ', positionWhiteSpace);
 
 		if (positionWhiteSpace == std::string::npos)
@@ -87,7 +87,7 @@ bool Pocon::WriterFile::HaveThreeWords(std::string_view _word)
 		// Advance to next white space
 		positionWhiteSpace++;
 
-		if (countWord >= 3)
+		if (countOfWhitespace >= 2)
 		{
 			return true;
 		}
