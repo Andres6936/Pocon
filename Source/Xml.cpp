@@ -100,11 +100,18 @@ void Xml::ClearDictionaryOfTagsUnused(std::vector <WordTranslate>& _dictionary)
 	{
 		ClearWordOfTagsUnused(word);
 		ClearWordOfUnderscore(word);
-		// Only deleted the character {.} of origin
+
+		// Is important that is line will be executed
+		// after that the ClearStringOfColon method.
+		ClearStringOfFormatSequences(word.first);
+		// Is important that is line will be executed
+		// before that the ClearStringOfFormatSequences method.
 		ClearStringOfColon(word.first);
 		ClearStringOfDoubleLine(word.first);
 		ClearStringOfApostrophe(word.first);
+		ClearStringOfNumberSign(word.first);
 		ClearStringOfParenthesis(word.first);
+		ClearStringOfQuestionMark(word.first);
 		ClearStringOfDecimalPoint(word.first);
 	}
 }
@@ -153,7 +160,7 @@ void Xml::ClearWordOfTagsUnused(WordTranslate& _word)
 
 void Xml::RemoveCharInString(std::string& _string, char _char)
 {
-	int position = _string.find(_char);
+	long position = _string.find(_char);
 
 	while (position != std::string::npos)
 	{
@@ -165,7 +172,7 @@ void Xml::RemoveCharInString(std::string& _string, char _char)
 
 void Xml::RemoveStringInString(std::string& _string, const std::string& _coincidence)
 {
-	int position = _string.find(_coincidence);
+	long position = _string.find(_coincidence);
 
 	while (position != std::string::npos)
 	{
@@ -335,5 +342,50 @@ void Xml::ClearStringOfParenthesis(std::string& _string)
 void Xml::ClearStringOfColon(std::string& _string)
 {
 	RemoveCharInString(_string, ':');
+}
+
+void Xml::ClearStringOfFormatSequences(std::string& _string)
+{
+	long positionPercentSign = _string.find('%');
+	long positionColon = _string.find(':');
+
+	while (positionPercentSign != std::string::npos)
+	{
+		if (positionColon == std::string::npos)
+		{
+			long positionWhiteSpace = _string.find(' ', positionPercentSign);
+
+			// Special case, can that not exist whitespace,
+			// thus removed only the character {%}
+			if (positionWhiteSpace == std::string::npos)
+			{
+				RemoveCharInString(_string, '%');
+				// Exit loop.
+				break;
+			}
+
+			// Deleted character to find a whitespace { }
+			_string.erase(positionPercentSign, positionWhiteSpace - positionPercentSign);
+			// Exit loop.
+			break;
+		}
+
+		// Deleted characters to colon
+		_string.erase(positionPercentSign, positionColon - positionPercentSign);
+
+		// Advance to next format sequence
+		positionPercentSign = _string.find('%');
+		positionColon = _string.find(':');
+	}
+}
+
+void Xml::ClearStringOfQuestionMark(std::string& _string)
+{
+	RemoveCharInString(_string, '?');
+}
+
+void Xml::ClearStringOfNumberSign(std::string& _string)
+{
+	RemoveCharInString(_string, '#');
 }
 
