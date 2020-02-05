@@ -36,15 +36,23 @@ namespace Pocon
 
 		static void DeleteTheWordMoreShortOf(std::vector <std::string>& _vector);
 
+		static bool HaveXWords(unsigned int x, std::string_view _string);
+
+		static bool HaveFourWords(std::string_view _word);
+
 		static bool HaveThreeWords(std::string_view _word);
 
 		static bool HaveTwoWords(std::string_view _word);
+
+		static std::string GetNameShortForAElementOfFourWords(std::string_view _basedIn);
 
 		static std::string GetNameShortForAElementOfThreeWords(std::string_view _basedIn);
 
 		static std::string GetNameShortForAElementOfTwoWords(std::string_view _basedIn);
 
 		static std::vector <std::string> ExtractAllWordsOfAString(std::string_view _string);
+
+		static std::vector <std::string> ExtractTheFourWordsMoreLengthOf(std::string_view _word);
 
 		static std::vector <std::string> ExtractTheThreeWordsMoreLengthOf(std::string_view _word);
 

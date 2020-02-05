@@ -109,12 +109,14 @@ void Xml::ClearDictionaryOfTagsUnused(std::vector <WordTranslate>& _dictionary)
 		// Is important that is line will be executed
 		// before that the ClearStringOfFormatSequences method.
 		ClearStringOfColon(word.first);
+		ClearStringOfComma(word.first);
 		ClearStringOfDoubleLine(word.first);
 		ClearStringOfApostrophe(word.first);
 		ClearStringOfNumberSign(word.first);
 		ClearStringOfParenthesis(word.first);
 		ClearStringOfQuestionMark(word.first);
 		ClearStringOfDecimalPoint(word.first);
+		ClearStringOfVerticalLine(word.first);
 	}
 }
 
@@ -437,5 +439,15 @@ void Xml::RemoveCommentsOfBufferInFirstLine(std::string& _buffer)
 		// Deleted all line completely, include the character of new line {\n}
 		_buffer.erase(0, positionNewLine + 1);
 	}
+}
+
+void Xml::ClearStringOfVerticalLine(std::string& _string)
+{
+	RemoveCharInString(_string, '|');
+}
+
+void Xml::ClearStringOfComma(std::string& _string)
+{
+	RemoveCharInString(_string, ',');
 }
 

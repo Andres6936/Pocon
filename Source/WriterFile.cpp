@@ -47,7 +47,11 @@ void Pocon::WriterFile::CreateNameOfElements()
 {
 	for (WordTranslate& word : dictionary)
 	{
-		if (HaveThreeWords(word.first))
+		if (HaveFourWords(word.first))
+		{
+			word.first = GetNameShortForAElementOfFourWords(word.first);
+		}
+		else if (HaveThreeWords(word.first))
 		{
 			word.first = GetNameShortForAElementOfThreeWords(word.first);
 		}
@@ -63,21 +67,16 @@ void Pocon::WriterFile::CreateNameOfElements()
 	}
 }
 
-bool Pocon::WriterFile::HaveThreeWords(std::string_view _word)
+bool Pocon::WriterFile::HaveXWords(unsigned int x, std::string_view _string)
 {
 	unsigned int countOfWhitespace = 0;
 
-	int positionWhiteSpace = _word.find(' ');
+	int positionWhiteSpace = _string.find(' ');
 
-	if (positionWhiteSpace == std::string::npos)
-	{
-		return false;
-	}
-
-	while (true)
+	while (positionWhiteSpace != std::string::npos)
 	{
 		countOfWhitespace++;
-		positionWhiteSpace = _word.find(' ', positionWhiteSpace);
+		positionWhiteSpace = _string.find(' ', positionWhiteSpace);
 
 		if (positionWhiteSpace == std::string::npos)
 		{
@@ -87,13 +86,24 @@ bool Pocon::WriterFile::HaveThreeWords(std::string_view _word)
 		// Advance to next white space
 		positionWhiteSpace++;
 
-		if (countOfWhitespace >= 2)
+		if (countOfWhitespace >= (x - 1))
 		{
 			return true;
 		}
 	}
 
 	return false;
+}
+
+bool Pocon::WriterFile::HaveFourWords(std::string_view _word)
+{
+	return HaveXWords(4, _word);
+}
+
+
+bool Pocon::WriterFile::HaveThreeWords(std::string_view _word)
+{
+	return HaveXWords(3, _word);
 }
 
 bool Pocon::WriterFile::HaveTwoWords(std::string_view _word)
@@ -109,6 +119,18 @@ bool Pocon::WriterFile::HaveTwoWords(std::string_view _word)
 		// An white space mean that exits more that two words.
 		return true;
 	}
+}
+
+std::string Pocon::WriterFile::GetNameShortForAElementOfFourWords(std::string_view _basedIn)
+{
+	std::vector <std::string> var = ExtractTheFourWordsMoreLengthOf(_basedIn);
+
+	for (std::string& s : var)
+	{
+		CapitalizeTheFirstLetterOf(s);
+	}
+
+	return std::string(var[0] + var[1] + var[2] + var[3]);
 }
 
 std::string Pocon::WriterFile::GetNameShortForAElementOfThreeWords(std::string_view _basedIn)
@@ -158,6 +180,21 @@ std::vector <std::string> Pocon::WriterFile::ExtractAllWordsOfAString(std::strin
 		positionWhiteSpace++;
 		// Remember the start of word
 		startWord = positionWhiteSpace;
+	}
+
+	return wordsInString;
+}
+
+std::vector <std::string> Pocon::WriterFile::ExtractTheFourWordsMoreLengthOf(std::string_view _word)
+{
+	std::vector <std::string> wordsInString = ExtractAllWordsOfAString(_word);
+
+	if (wordsInString.size() > 4)
+	{
+		while (wordsInString.size() > 4)
+		{
+			DeleteTheWordMoreShortOf(wordsInString);
+		}
 	}
 
 	return wordsInString;

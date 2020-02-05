@@ -30,7 +30,11 @@ namespace Pocon
 
 		static void ClearStringOfFormatSequences(std::string& _string);
 
+		static void ClearStringOfVerticalLine(std::string& _string);
+
 		static void ClearStringOfQuestionMark(std::string& _string);
+
+		static void ClearStringOfDecimalPoint(std::string& _string);
 
 		static void ClearStringOfParenthesis(std::string& _string);
 
@@ -40,7 +44,7 @@ namespace Pocon
 
 		static void ClearStringOfDoubleLine(std::string& _string);
 
-		static void ClearStringOfDecimalPoint(std::string& _string);
+		static void ClearStringOfComma(std::string& _string);
 
 		static void ClearStringOfColon(std::string& _string);
 
