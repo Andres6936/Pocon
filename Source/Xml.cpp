@@ -7,6 +7,8 @@ void Xml::ConvertBufferToXml(const ReaderFile& reader)
 {
 	// Get the buffer of file po
 	std::string buffer = reader.GetBuffer();
+	// Remove comments of buffer
+	RemoveCommentsOfBuffer(buffer);
 
 	// Word, with format:
 	// first -> origin
@@ -387,5 +389,38 @@ void Xml::ClearStringOfQuestionMark(std::string& _string)
 void Xml::ClearStringOfNumberSign(std::string& _string)
 {
 	RemoveCharInString(_string, '#');
+}
+
+void Xml::RemoveCommentsOfBuffer(std::string& _buffer)
+{
+	// Generally, the comments begin before of a new
+	// line {\n}, follow of an character of number
+	// sign {#} and finalize with an character of
+	// new line {\n}
+
+	long positionStartComment = _buffer.find("\n#");
+	long positionEndComment = 0;
+
+	while (positionStartComment != std::string::npos)
+	{
+		// The comments and the document always finalize with the character {\n}
+		// Thus, the condition of find an character {\n} always is true.
+		// - Is needed add 2 to positionStartComment for avoid that the
+		// 		character {\n} that mark the begin of the comment will be marked
+		// 		like the character that finalize the comment.
+		positionEndComment = _buffer.find('\n', positionStartComment += 2);
+
+		// Reset the value for defect of positionStartComment
+		positionStartComment -= 2;
+
+		// We remove only the character {#} that mark the begin of the comment,
+		// the character {\n} that is back of {#} not is removed.
+		// - Is needed add 1 to positionStartComment to avoid delete the character {\n}
+		// - {EndComment - StartComment} mark the length of line, include the character {\n}
+		_buffer.erase(positionStartComment + 1, positionEndComment - positionStartComment);
+
+		// Advance to next comment
+		positionStartComment = _buffer.find("\n#");
+	}
 }
 
