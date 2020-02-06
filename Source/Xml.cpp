@@ -117,6 +117,7 @@ void Xml::ClearDictionaryOfTagsUnused(std::vector <WordTranslate>& _dictionary)
 		ClearStringOfQuestionMark(word.first);
 		ClearStringOfDecimalPoint(word.first);
 		ClearStringOfVerticalLine(word.first);
+		ClearStringOfWordsSeparatedWithHyphen(word.first);
 	}
 }
 
@@ -449,5 +450,31 @@ void Xml::ClearStringOfVerticalLine(std::string& _string)
 void Xml::ClearStringOfComma(std::string& _string)
 {
 	RemoveCharInString(_string, ',');
+}
+
+void Xml::ClearStringOfWordsSeparatedWithHyphen(std::string& _string)
+{
+	int positionHyphen = _string.find('-');
+
+	while (positionHyphen != std::string::npos)
+	{
+		// We may verify that the next character
+		// of {-} too be an alphabetic character.
+		// but in my opinion, not is needed, only
+		// needed verify if exits an alphabetic after
+		// of {-}.
+		// Other problem that can happen is if the
+		// character {-} is found to begin of string
+		// {position = 0}, for avoid an out_range
+		// exception, we must verify that the character
+		// {-} is found in a position more greater than 0.
+		if (positionHyphen > 0 && std::isalpha(_string[positionHyphen - 1]))
+		{
+			// Replaced the character for an whitespace
+			_string.replace(positionHyphen, 1, " ");
+		}
+
+		positionHyphen = _string.find('-', ++positionHyphen);
+	}
 }
 

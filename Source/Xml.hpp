@@ -28,6 +28,8 @@ namespace Pocon
 
 		static void ClearWordOfUnderscore(WordTranslate& _word);
 
+		static void ClearStringOfWordsSeparatedWithHyphen(std::string& _string);
+
 		static void ClearStringOfFormatSequences(std::string& _string);
 
 		static void ClearStringOfVerticalLine(std::string& _string);
