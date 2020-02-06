@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 
-#include "ReaderFile.hpp"
+#include "Readable.hpp"
 
 namespace Pocon
 {
@@ -68,7 +68,7 @@ namespace Pocon
 
 	public:
 
-		static void ConvertBufferToXml(const ReaderFile& reader);
+		static void ConvertBufferToXml(const Readable& reader);
 
 	};
 }

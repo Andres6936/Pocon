@@ -1,29 +1,29 @@
-#include "WriterFile.hpp"
+#include "Writable.hpp"
 
 // Setters
 
-void Pocon::WriterFile::SetPropertiesFile(const std::vector <PropertyFile>& _propertiesFile)
+void Pocon::Writable::SetPropertiesFile(const std::vector <PropertyFile>& _propertiesFile)
 {
 	propertiesFile = _propertiesFile;
 }
 
-void Pocon::WriterFile::SetLicenseFile(const std::string& _licenseFile)
+void Pocon::Writable::SetLicenseFile(const std::string& _licenseFile)
 {
 	licenseFile = _licenseFile;
 }
 
-void Pocon::WriterFile::SetCreditsFile(const std::vector <std::string>& _creditsFile)
+void Pocon::Writable::SetCreditsFile(const std::vector <std::string>& _creditsFile)
 {
 	creditsFile = _creditsFile;
 }
 
 // Construct
 
-Pocon::WriterFile::WriterFile() = default;
+Pocon::Writable::Writable() = default;
 
 // Methods
 
-void Pocon::WriterFile::CreateFileStruct()
+void Pocon::Writable::CreateFileStruct()
 {
 	document.LinkEndChild(new Ana::Declaration("1.0", "UTF-8", ""));
 
@@ -33,17 +33,17 @@ void Pocon::WriterFile::CreateFileStruct()
 	document.LinkEndChild(new Ana::Element("LanguageInject"));
 }
 
-void Pocon::WriterFile::SaveFileInFormatXml()
+void Pocon::Writable::SaveFileInFormatXml()
 {
 	document.SaveFile("Out.xml");
 }
 
-void Pocon::WriterFile::SetDictionary(const std::vector <WordTranslate>& _dictionary)
+void Pocon::Writable::SetDictionary(const std::vector <WordTranslate>& _dictionary)
 {
 	dictionary = _dictionary;
 }
 
-void Pocon::WriterFile::CreateNameOfElements()
+void Pocon::Writable::CreateNameOfElements()
 {
 	for (WordTranslate& word : dictionary)
 	{
@@ -67,7 +67,7 @@ void Pocon::WriterFile::CreateNameOfElements()
 	}
 }
 
-bool Pocon::WriterFile::HaveXWords(unsigned int x, std::string_view _string)
+bool Pocon::Writable::HaveXWords(unsigned int x, std::string_view _string)
 {
 	unsigned int countOfWhitespace = 0;
 
@@ -107,18 +107,18 @@ bool Pocon::WriterFile::HaveXWords(unsigned int x, std::string_view _string)
 	return false;
 }
 
-bool Pocon::WriterFile::HaveFourWords(std::string_view _word)
+bool Pocon::Writable::HaveFourWords(std::string_view _word)
 {
 	return HaveXWords(4, _word);
 }
 
 
-bool Pocon::WriterFile::HaveThreeWords(std::string_view _word)
+bool Pocon::Writable::HaveThreeWords(std::string_view _word)
 {
 	return HaveXWords(3, _word);
 }
 
-bool Pocon::WriterFile::HaveTwoWords(std::string_view _word)
+bool Pocon::Writable::HaveTwoWords(std::string_view _word)
 {
 	int positionWhiteSpace = _word.find(' ');
 
@@ -133,7 +133,7 @@ bool Pocon::WriterFile::HaveTwoWords(std::string_view _word)
 	}
 }
 
-std::string Pocon::WriterFile::GetNameShortForAElementOfFourWords(std::string_view _basedIn)
+std::string Pocon::Writable::GetNameShortForAElementOfFourWords(std::string_view _basedIn)
 {
 	std::vector <std::string> var = ExtractTheFourWordsMoreLengthOf(_basedIn);
 
@@ -145,7 +145,7 @@ std::string Pocon::WriterFile::GetNameShortForAElementOfFourWords(std::string_vi
 	return std::string(var[0] + var[1] + var[2] + var[3]);
 }
 
-std::string Pocon::WriterFile::GetNameShortForAElementOfThreeWords(std::string_view _basedIn)
+std::string Pocon::Writable::GetNameShortForAElementOfThreeWords(std::string_view _basedIn)
 {
 	std::vector <std::string> var = ExtractTheThreeWordsMoreLengthOf(_basedIn);
 
@@ -157,7 +157,7 @@ std::string Pocon::WriterFile::GetNameShortForAElementOfThreeWords(std::string_v
 	return std::string(var[0] + var[1] + var[2]);
 }
 
-std::string Pocon::WriterFile::GetNameShortForAElementOfTwoWords(std::string_view _basedIn)
+std::string Pocon::Writable::GetNameShortForAElementOfTwoWords(std::string_view _basedIn)
 {
 	std::vector <std::string> var = ExtractTheTwoWordsMoreLengthOf(_basedIn);
 
@@ -169,7 +169,7 @@ std::string Pocon::WriterFile::GetNameShortForAElementOfTwoWords(std::string_vie
 	return std::string(var[0] + var[1]);
 }
 
-std::vector <std::string> Pocon::WriterFile::ExtractAllWordsOfAString(std::string_view _string)
+std::vector <std::string> Pocon::Writable::ExtractAllWordsOfAString(std::string_view _string)
 {
 	std::vector <std::string> wordsInString;
 
@@ -197,7 +197,7 @@ std::vector <std::string> Pocon::WriterFile::ExtractAllWordsOfAString(std::strin
 	return wordsInString;
 }
 
-std::vector <std::string> Pocon::WriterFile::ExtractTheXWordsMoreLengthOf(std::string_view _word, const unsigned int x)
+std::vector <std::string> Pocon::Writable::ExtractTheXWordsMoreLengthOf(std::string_view _word, const unsigned int x)
 {
 	std::vector <std::string> wordsInString = ExtractAllWordsOfAString(_word);
 
@@ -209,22 +209,22 @@ std::vector <std::string> Pocon::WriterFile::ExtractTheXWordsMoreLengthOf(std::s
 	return wordsInString;
 }
 
-std::vector <std::string> Pocon::WriterFile::ExtractTheFourWordsMoreLengthOf(std::string_view _word)
+std::vector <std::string> Pocon::Writable::ExtractTheFourWordsMoreLengthOf(std::string_view _word)
 {
 	return ExtractTheXWordsMoreLengthOf(_word, 4);
 }
 
-std::vector <std::string> Pocon::WriterFile::ExtractTheThreeWordsMoreLengthOf(std::string_view _word)
+std::vector <std::string> Pocon::Writable::ExtractTheThreeWordsMoreLengthOf(std::string_view _word)
 {
 	return ExtractTheXWordsMoreLengthOf(_word, 3);
 }
 
-std::vector <std::string> Pocon::WriterFile::ExtractTheTwoWordsMoreLengthOf(std::string_view _word)
+std::vector <std::string> Pocon::Writable::ExtractTheTwoWordsMoreLengthOf(std::string_view _word)
 {
 	return ExtractTheXWordsMoreLengthOf(_word, 2);
 }
 
-void Pocon::WriterFile::DeleteTheWordMoreShortOf(std::vector <std::string>& _vector)
+void Pocon::Writable::DeleteTheWordMoreShortOf(std::vector <std::string>& _vector)
 {
 	// We supposition, the first element is the word more short.
 
@@ -243,12 +243,12 @@ void Pocon::WriterFile::DeleteTheWordMoreShortOf(std::vector <std::string>& _vec
 	_vector.erase(_vector.begin() + indexOfWordMoreShort);
 }
 
-void Pocon::WriterFile::CapitalizeTheFirstLetterOf(std::string& _string)
+void Pocon::Writable::CapitalizeTheFirstLetterOf(std::string& _string)
 {
 	_string[0] = std::toupper(_string[0]);
 }
 
-void Pocon::WriterFile::CreateElementsAndTranslates()
+void Pocon::Writable::CreateElementsAndTranslates()
 {
 	// Get the last element added in the document,
 	// it last element must be a Element called LanguageInject,
@@ -264,7 +264,7 @@ void Pocon::WriterFile::CreateElementsAndTranslates()
 	}
 }
 
-void Pocon::WriterFile::FormatStringToCapitalize(std::string& _string)
+void Pocon::Writable::FormatStringToCapitalize(std::string& _string)
 {
 	for (unsigned long i = 1; i < _string.size(); i++)
 	{

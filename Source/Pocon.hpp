@@ -6,7 +6,7 @@
 
 #include "IInterfaceGraphic.hpp"
 #include "CommandLine.hpp"
-#include "ReaderFile.hpp"
+#include "Readable.hpp"
 
 namespace Pocon
 {
@@ -17,7 +17,7 @@ namespace Pocon
 
 		IInterfaceGraphic* graphic = new CommandLine();
 
-		ReaderFile reader;
+		Readable reader;
 
 		std::string filename = "None";
 

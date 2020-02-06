@@ -1,7 +1,7 @@
-#include "ReaderFile.hpp"
+#include "Readable.hpp"
 #include "FileNotFoundException.hpp"
 
-void Pocon::ReaderFile::ReadFile(const std::string& _filename)
+void Pocon::Readable::ReadFile(const std::string& _filename)
 {
 	// open file in mode of only read
 	stream.open(_filename, std::ios::in);
@@ -35,7 +35,7 @@ void Pocon::ReaderFile::ReadFile(const std::string& _filename)
 	}
 }
 
-const std::string& Pocon::ReaderFile::GetBuffer() const
+const std::string& Pocon::Readable::GetBuffer() const
 {
 	return buffer;
 }

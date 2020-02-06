@@ -1,11 +1,11 @@
-#ifndef POCON_READERFILE_HPP
-#define POCON_READERFILE_HPP
+#ifndef POCON_READABLE_HPP
+#define POCON_READABLE_HPP
 
 #include <fstream>
 
 namespace Pocon
 {
-	class ReaderFile
+	class Readable
 	{
 
 	private:
@@ -18,7 +18,7 @@ namespace Pocon
 
 	public:
 
-		ReaderFile() = default;
+		Readable() = default;
 
 		void ReadFile(const std::string& _filename);
 
@@ -30,4 +30,4 @@ namespace Pocon
 }
 
 
-#endif //POCON_READERFILE_HPP
+#endif //POCON_READABLE_HPP

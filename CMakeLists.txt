@@ -11,8 +11,8 @@ INCLUDE_DIRECTORIES(Include)
 LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/Library)
 
 ADD_EXECUTABLE(Pocon Main.cpp
-        Source/ReaderFile.cpp
-        Source/ReaderFile.hpp
+        Source/Readable.cpp
+        Source/Readable.hpp
         Source/Pocon.cpp
         Source/Pocon.hpp
         Source/IInterfaceGraphic.hpp
@@ -25,8 +25,8 @@ ADD_EXECUTABLE(Pocon Main.cpp
         Source/Keyboard/KeyCode.hpp
         Source/Xml.cpp
         Source/Xml.hpp
-        Source/WriterFile.cpp
-        Source/WriterFile.hpp)
+        Source/Writable.cpp
+        Source/Writable.hpp)
 
 # Load and link the library Ana for manage XML files
 TARGET_LINK_LIBRARIES(Pocon Ana)

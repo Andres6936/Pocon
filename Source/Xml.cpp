@@ -1,9 +1,9 @@
 #include "Xml.hpp"
-#include "WriterFile.hpp"
+#include "Writable.hpp"
 
 using namespace Pocon;
 
-void Xml::ConvertBufferToXml(const ReaderFile& reader)
+void Xml::ConvertBufferToXml(const Readable& reader)
 {
 	// Get the buffer of file po
 	std::string buffer = reader.GetBuffer();
@@ -80,14 +80,14 @@ void Xml::ConvertBufferToXml(const ReaderFile& reader)
 	// The dictionary content the translator credits of file. See files .po
 	std::vector <std::string> credits = ExtractTranslatorCreditsOfFile(dictionary);
 
-	WriterFile writer = WriterFile();
+	Writable writer = Writable();
 	writer.SetDictionary(dictionary);
 	writer.SetPropertiesFile(properties);
 	writer.SetLicenseFile(license);
 	writer.SetCreditsFile(credits);
 
 	// Clear for free memory.
-	// Note: WriterFile save an copy of each of items.
+	// Note: Writable save an copy of each of items.
 	dictionary.clear();
 	properties.clear();
 	license.clear();

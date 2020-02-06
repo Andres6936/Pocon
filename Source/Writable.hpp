@@ -1,5 +1,5 @@
-#ifndef POCON_WRITERFILE_HPP
-#define POCON_WRITERFILE_HPP
+#ifndef POCON_WRITABLE_HPP
+#define POCON_WRITABLE_HPP
 
 #include "Ana/Ana.hpp"
 
@@ -17,7 +17,7 @@ namespace Pocon
 	// Second = Value of Property
 	using PropertyFile = std::pair <std::string, std::string>;
 
-	class WriterFile
+	class Writable
 	{
 
 	private:
@@ -66,7 +66,7 @@ namespace Pocon
 
 		// Construct
 
-		WriterFile();
+		Writable();
 
 		// Methods
 
@@ -92,4 +92,4 @@ namespace Pocon
 }
 
 
-#endif //POCON_WRITERFILE_HPP
+#endif //POCON_WRITABLE_HPP
