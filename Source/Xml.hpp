@@ -50,6 +50,8 @@ namespace Pocon
 
 		static void ClearStringOfColon(std::string& _string);
 
+		static void FormatLicenseAddNewLine(std::string& _license);
+
 		static void RemoveCommentsOfBufferInFirstLine(std::string& _buffer);
 
 		static void RemoveCommentsOfBuffer(std::string& _buffer);

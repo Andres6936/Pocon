@@ -72,8 +72,11 @@ void Xml::ConvertBufferToXml(const ReaderFile& reader)
 
 	// The dictionary content the properties of file. See files .po
 	std::vector <PropertyFile> properties = ExtractPropertiesOfFile(dictionary);
+
 	// The dictionary content the license of file. See files .po
 	std::string license = ExtractLicenseOfFile(dictionary);
+	FormatLicenseAddNewLine(license);
+
 	// The dictionary content the translator credits of file. See files .po
 	std::vector <std::string> credits = ExtractTranslatorCreditsOfFile(dictionary);
 
@@ -476,6 +479,94 @@ void Xml::ClearStringOfWordsSeparatedWithHyphen(std::string& _string)
 
 		// Advance to next character {-}
 		positionHyphen = _string.find('-', ++positionHyphen);
+	}
+}
+
+void AddNewLineInReplaceOfString(std::string_view toReplaced, std::string& _string)
+{
+	int positionString = _string.find(toReplaced);
+
+	while (positionString != std::string::npos)
+	{
+		_string.replace(positionString, toReplaced.size(), "\n");
+
+		positionString = _string.find(toReplaced);
+	}
+}
+
+std::vector <std::string> DivideStringIndicateForTheCharacter(char _char, std::string_view _string)
+{
+	std::vector <std::string> vectorString;
+
+	int positionChar = _string.find(_char);
+	int rememberPositionChar = 0;
+
+	while (positionChar != std::string::npos)
+	{
+		std::string licensePart = (std::string)_string.substr(rememberPositionChar,
+				positionChar - rememberPositionChar + 1);
+		vectorString.push_back(licensePart);
+
+		rememberPositionChar = ++positionChar;
+		positionChar = _string.find(_char, positionChar);
+	}
+
+	return vectorString;
+}
+
+void ConcatenateStringVerySmallInOne(std::vector <std::string>& _vector)
+{
+	constexpr int SMALL_STRING = 15;
+
+	for (int i = 0; i < _vector.size(); ++i)
+	{
+		if (_vector[i].size() < SMALL_STRING)
+		{
+			std::string smallString = _vector[i];
+			_vector.erase(_vector.begin() + i);
+
+			if (i > 0)
+			{
+				_vector[i - 1] = _vector[i - 1] + smallString;
+			}
+		}
+	}
+}
+
+void AddNewLineForBreakLineOfGreatString(std::string& _string)
+{
+	constexpr short LINE_BREAKING = 90;
+
+	int positionWhitespace = _string.find(' ', LINE_BREAKING);
+
+	unsigned int numberOfIteration = 1;
+
+	while (positionWhitespace != std::string::npos)
+	{
+		_string.replace(positionWhitespace, 1, "\n");
+
+		numberOfIteration++;
+
+		positionWhitespace = _string.find(' ', LINE_BREAKING * numberOfIteration);
+	}
+}
+
+void Xml::FormatLicenseAddNewLine(std::string& _license)
+{
+	std::vector <std::string> licenseDivided = DivideStringIndicateForTheCharacter('.', _license);
+	ConcatenateStringVerySmallInOne(licenseDivided);
+
+	_license.clear();
+
+	for (std::string& s : licenseDivided)
+	{
+		AddNewLineInReplaceOfString("\\n", s);
+		AddNewLineForBreakLineOfGreatString(s);
+
+		// Added a new line to end of each string
+		s.push_back('\n');
+		// Updated we license
+		_license.append(s);
 	}
 }
 
