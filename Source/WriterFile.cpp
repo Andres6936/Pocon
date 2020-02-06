@@ -86,6 +86,18 @@ bool Pocon::WriterFile::HaveXWords(unsigned int x, std::string_view _string)
 		// Advance to next white space
 		positionWhiteSpace++;
 
+		// Remember, I wanna determine: ¿how many words have the string?,
+		// we know that normally the words of a text are separated
+		// with a whitespace, for text with 2 words, the number of
+		// whitespace is of 1, for text of 3 words, the number of
+		// whitespace is of 2, for text of 4 words, the number of
+		// whitespace is of 3, etc ...
+		// the relation between words in a text and whitespace
+		// character is:
+		// 		y = x - 1
+		// where:
+		// y = number of whitespace characters in the text
+		// x = number of words in the text
 		if (countOfWhitespace >= (x - 1))
 		{
 			return true;
