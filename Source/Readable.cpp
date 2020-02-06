@@ -1,10 +1,10 @@
 #include "Readable.hpp"
 #include "FileNotFoundException.hpp"
 
-void Pocon::Readable::ReadFile(const std::string& _filename)
+void Pocon::Readable::ReadFile(std::string_view _filename)
 {
 	// open file in mode of only read
-	stream.open(_filename, std::ios::in);
+	stream.open(_filename.data(), std::ios::in);
 
 	if (stream.is_open())
 	{
@@ -31,7 +31,7 @@ void Pocon::Readable::ReadFile(const std::string& _filename)
 	}
 	else
 	{
-		throw FileNotFoundException("Cannot Open the File: " + _filename);
+		throw FileNotFoundException("Cannot Open the File: " + (std::string)_filename);
 	}
 }
 

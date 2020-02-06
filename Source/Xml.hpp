@@ -17,7 +17,7 @@ namespace Pocon
 	// Second = Value of Property
 	using PropertyFile = std::pair <std::string, std::string>;
 
-	class Xml
+	class Xml : private Readable
 	{
 
 	private:
@@ -68,7 +68,7 @@ namespace Pocon
 
 	public:
 
-		static void ConvertBufferToXml(const Readable& reader);
+		void ConvertBufferToXml(std::string_view filename);
 
 	};
 }

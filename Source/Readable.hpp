@@ -20,7 +20,7 @@ namespace Pocon
 
 		Readable() = default;
 
-		void ReadFile(const std::string& _filename);
+		void ReadFile(std::string_view _filename);
 
 		// Getters
 

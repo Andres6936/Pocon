@@ -115,16 +115,8 @@ void Pocon::Pocon::ProcessOnlyAFile()
 	}
 	else
 	{
-		try
-		{
-			reader.ReadFile(filename);
-		}
-		catch (Exception& exception)
-		{
-			exception.ShowError();
-		}
-
-		Xml::ConvertBufferToXml(reader);
+		// Create an anonymous object
+		Xml().ConvertBufferToXml(filename);
 	}
 }
 

@@ -1,12 +1,23 @@
 #include "Xml.hpp"
 #include "Writable.hpp"
+#include "Exception.hpp"
 
 using namespace Pocon;
 
-void Xml::ConvertBufferToXml(const Readable& reader)
+void Xml::ConvertBufferToXml(std::string_view filename)
 {
+	try
+	{
+		// Read the filename
+		ReadFile(filename);
+	}
+	catch (Exception& exception)
+	{
+		exception.ShowError();
+	}
+
 	// Get the buffer of file po
-	std::string buffer = reader.GetBuffer();
+	std::string buffer = GetBuffer();
 	// Remove comments of buffer
 	RemoveCommentsOfBuffer(buffer);
 
@@ -569,4 +580,3 @@ void Xml::FormatLicenseAddNewLine(std::string& _license)
 		_license.append(s);
 	}
 }
-
