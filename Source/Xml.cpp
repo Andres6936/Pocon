@@ -474,6 +474,7 @@ void Xml::ClearStringOfWordsSeparatedWithHyphen(std::string& _string)
 			_string.replace(positionHyphen, 1, " ");
 		}
 
+		// Advance to next character {-}
 		positionHyphen = _string.find('-', ++positionHyphen);
 	}
 }
