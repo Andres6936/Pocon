@@ -4,7 +4,7 @@
 
 using namespace Pocon;
 
-void Xml::ConvertBufferToXml(std::string_view filename)
+void Xml::ConvertBufferToXml(const std::filesystem::path& filename)
 {
 	try
 	{

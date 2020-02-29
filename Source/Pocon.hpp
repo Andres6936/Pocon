@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <filesystem>
 
 #include "IInterfaceGraphic.hpp"
 #include "CommandLine.hpp"
@@ -19,9 +20,9 @@ namespace Pocon
 
 		Readable reader;
 
-		std::string filename = "None";
+		std::filesystem::path filename;
 
-		std::string directoryName = "None";
+		std::filesystem::path directoryName;
 
 		std::vector <std::string> arguments;
 

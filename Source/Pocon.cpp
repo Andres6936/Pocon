@@ -38,7 +38,7 @@ void Pocon::Pocon::Run()
 		filename = GetFilenameFromArguments();
 		directoryName = GetDirectoryNameFromArguments();
 
-		if (filename == "None" and directoryName == "None")
+		if (filename.string() == "None" and directoryName.string() == "None")
 		{
 			throw Exception("ArgumentsProgramInvalidException");
 		}
@@ -109,7 +109,7 @@ std::string Pocon::Pocon::GetDirectoryNameFromArguments() const
 
 void Pocon::Pocon::ProcessOnlyAFile()
 {
-	if (filename == "None")
+	if (filename.string() == "None")
 	{
 		return;
 	}

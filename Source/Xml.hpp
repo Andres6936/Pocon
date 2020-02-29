@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <filesystem>
 
 #include "Readable.hpp"
 
@@ -68,7 +69,7 @@ namespace Pocon
 
 	public:
 
-		void ConvertBufferToXml(std::string_view filename);
+		void ConvertBufferToXml(const std::filesystem::path& filename);
 
 	};
 }

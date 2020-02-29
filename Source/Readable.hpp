@@ -2,6 +2,7 @@
 #define POCON_READABLE_HPP
 
 #include <fstream>
+#include <filesystem>
 
 namespace Pocon
 {
@@ -20,7 +21,7 @@ namespace Pocon
 
 		Readable() = default;
 
-		void ReadFile(std::string_view _filename);
+		void ReadFile(const std::filesystem::path& _filename);
 
 		// Getters
 
