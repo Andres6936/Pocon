@@ -593,6 +593,7 @@ void Xml::FormatLicenseAddNewLine(std::string& _license)
  * The main function is ExtractNameOfTranslation.
  *
  * - Deleted characters {.} and { } to end the string.
+ * - Replaced characters {/} to { }
  * - Replaced lower letters to Upper letters to begin of the string.
  *
  * @param _string Name of translation to clear of characters
@@ -603,6 +604,14 @@ void ClearAndFormatNameOfTranslationOfCharactersUnused(std::string& _string)
 	if (_string[_string.size() - 1] == '.' or _string[_string.size() - 1] == ' ')
 	{
 		_string.pop_back();
+	}
+
+	for (char& c : _string)
+	{
+		if (c == '/')
+		{
+			c = ' ';
+		}
 	}
 
 	// If the first letter is already upper, nope happen.
