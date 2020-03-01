@@ -623,9 +623,8 @@ void ClearAndFormatNameOfTranslationOfCharactersUnused(std::string& _string)
  * The main function is ExtractFilenameOutput.
  *
  * @param _buffer Buffer of characters where the name of translation will be obtained.
- * @param positionKeyword The keyword is {translation for} or {translation of}, is
- *  necessary get the position where it keyword begin {Aka: the character 't'} for
- *  know where start to cut the final string.
+ * @param positionKeyword The position of keyword, where the keyword is {translation
+ *  for} or {translation of} or {translation to}.
  * @return The name of translation, Aka: the translation for X language of Y program.
  */
 std::string ExtractNameOfTranslation(std::string_view _buffer, int positionKeyword)
