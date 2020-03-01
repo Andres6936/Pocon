@@ -687,8 +687,8 @@ std::string Xml::ExtractFilenameOutput(std::string_view _buffer)
 	// Generally the first comment of file .po content this sequence
 	// of characters that indicate that the file .po is translate for/of/to
 	// the language X.
-	// The code coverage show that is more probable find
-	// sequence of characters {translation of} that any other.
+	// Thanks to the code coverage the if block are sort of more probable
+	// to less probable.
 	int positionKeyword = _buffer.find("translation of");
 
 	if (positionKeyword != std::string::npos)
@@ -707,6 +707,14 @@ std::string Xml::ExtractFilenameOutput(std::string_view _buffer)
 		return filenameOutput + ".xml";
 	}
 
+	positionKeyword = _buffer.find("Translation of");
+
+	if (positionKeyword != std::string::npos)
+	{
+		std::string filenameOutput = ExtractNameOfTranslation(_buffer, positionKeyword);
+
+		return filenameOutput + ".xml";
+	}
 
 	positionKeyword = _buffer.find("translation to");
 
