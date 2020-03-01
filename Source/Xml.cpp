@@ -595,12 +595,47 @@ void Xml::FormatLicenseAddNewLine(std::string& _license)
  * @param _buffer Buffer of characters where the name of translation will be obtained.
  * @param positionKeyword The keyword is {translation for} or {translation of}, is
  *  necessary get the position where it keyword begin {Aka: the character 't'} for
- *  know where begging to cut the final string.
- * @return The name of translation, Aka: the translation for X language.
+ *  know where start to cut the final string.
+ * @return The name of translation, Aka: the translation for X language of Y program.
  */
 inline std::string ExtractNameOfTranslation(std::string_view _buffer, int positionKeyword)
 {
 	int positionNumberSign = _buffer.rfind('#', positionKeyword);
+
+	// Is possible that the keyword not is inside of a comments
+	if (positionNumberSign == std::string::npos) return "Unknown.xml";
+
+	// New case reported, exist several variations of like the keyword can look:
+	// For example, is possible see comment with the keyword of this type:
+	// - # Spanish translate for X program.			(1)
+	// - # Spanish translate of X program.			(2)
+	// - # translate for X program to Spanish.	(3)
+	// - # translate of X program to Spanish.	(4)
+	// Where X is any program that use files .po for its translates.
+	// This method work fine for the cases 1 and 2, but for the cases 3
+	// and 4 needed an special manage.
+	if (positionKeyword - positionNumberSign <= 2)
+	{
+		// For the cases 3 and 4:
+		// The distance that exist between the character {#} and the
+		// character {t} is of 2 positions.
+
+		// Find the word {to} in the buffer after of the keyword.
+		int positionOfWord = _buffer.find(" to ", positionKeyword);
+
+		if (positionOfWord == std::string::npos) return "Unknown";
+
+		int positionNewLine = _buffer.find('\n', positionOfWord);
+
+		// OfWord + 4: Avoid include the character { to } to final string.
+		// NewLine - OfWord - 4: Determine the length of final word,
+		// remember that the word { to } include 4 characters, characters
+		// that we not want include in final string.
+		std::string nameOfTranslate = (std::string)_buffer.substr(positionOfWord + 4,
+				positionNewLine - positionOfWord - 4);
+
+		return nameOfTranslate;
+	}
 
 	// NumberSign + 2: For avoid include the characters {# } to final string.
 	// Keyword - NumberSign - 3: For avoid include the characters { t}
