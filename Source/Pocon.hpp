@@ -26,6 +26,8 @@ namespace Pocon
 
 		std::vector <std::string> arguments;
 
+		std::vector <std::filesystem::path> listFilenames;
+
 	public:
 
 		Pocon(int argc, char** argv);

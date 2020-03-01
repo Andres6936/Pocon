@@ -122,12 +122,20 @@ void Pocon::Pocon::ProcessOnlyAFile()
 
 void Pocon::Pocon::ProcessMultiplesFiles()
 {
-	if (directoryName == "None")
+	if (std::filesystem::exists(directoryName))
 	{
-		return;
+		using namespace std::filesystem;
+
+		for (const directory_entry& entry : directory_iterator(directoryName))
+		{
+			if (entry.path().extension() == ".po")
+			{
+				listFilenames.emplace_back(entry.path());
+			}
+		}
 	}
 	else
 	{
-
+		return;
 	}
 }
