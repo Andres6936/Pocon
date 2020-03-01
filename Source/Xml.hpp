@@ -26,6 +26,8 @@ namespace Pocon
 
 		static void ClearDictionaryOfTagsUnused(std::vector <WordTranslate>& _dictionary);
 
+		static void ClearDictionaryOfTagsEmpty(std::vector <WordTranslate>& _dictionary);
+
 		static void ClearWordOfTagsUnused(WordTranslate& _word);
 
 		static void ClearWordOfUnderscore(WordTranslate& _word);
@@ -47,6 +49,8 @@ namespace Pocon
 		static void ClearStringOfApostrophe(std::string& _string);
 
 		static void ClearStringOfDoubleLine(std::string& _string);
+
+		static void ClearStringOfAsterisk(std::string& _string);
 
 		static void ClearStringOfComma(std::string& _string);
 

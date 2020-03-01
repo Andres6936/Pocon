@@ -83,6 +83,9 @@ void Xml::ConvertBufferToXml(const std::filesystem::path& filename)
 	buffer.clear();
 
 	ClearDictionaryOfTagsUnused(dictionary);
+	// Exist translates that when are clear of tags unused,
+	// these [tags] possibly will be empty.
+	ClearDictionaryOfTagsEmpty(dictionary);
 
 	// The dictionary content the properties of file. See files .po
 	std::vector <PropertyFile> properties = ExtractPropertiesOfFile(dictionary);
@@ -127,6 +130,7 @@ void Xml::ClearDictionaryOfTagsUnused(std::vector <WordTranslate>& _dictionary)
 		// before that the ClearStringOfFormatSequences method.
 		ClearStringOfColon(word.first);
 		ClearStringOfComma(word.first);
+		ClearStringOfAsterisk(word.first);
 		ClearStringOfDoubleLine(word.first);
 		ClearStringOfApostrophe(word.first);
 		ClearStringOfNumberSign(word.first);
@@ -630,4 +634,20 @@ std::string Xml::ExtractFilenameOutput(std::string_view _buffer)
 	}
 
 	return "Unknown.xml";
+}
+
+void Xml::ClearStringOfAsterisk(std::string& _string)
+{
+	RemoveCharInString(_string, '*');
+}
+
+void Xml::ClearDictionaryOfTagsEmpty(std::vector <WordTranslate>& _dictionary)
+{
+	for (int i = 0; i < _dictionary.size(); ++i)
+	{
+		if (_dictionary[i].first.empty())
+		{
+			_dictionary.erase(_dictionary.begin() + i);
+		}
+	}
 }
