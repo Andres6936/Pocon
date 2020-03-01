@@ -4,8 +4,8 @@
 #include "Ana/Ana.hpp"
 
 #include <string>
-#include <string_view>
 #include <vector>
+#include <string_view>
 
 namespace Pocon
 {
@@ -76,7 +76,7 @@ namespace Pocon
 
 		void CreateElementsAndTranslates();
 
-		void SaveFileInFormatXml();
+		void SaveFileInFormatXml(std::string_view _filenameOutput);
 
 		// Setters
 

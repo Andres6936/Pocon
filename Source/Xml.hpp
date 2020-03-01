@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <filesystem>
+#include <string_view>
 
 #include "Readable.hpp"
 
@@ -60,6 +61,8 @@ namespace Pocon
 		static void RemoveCharInString(std::string& _string, char _char);
 
 		static void RemoveStringInString(std::string& _string, const std::string& _coincidence);
+
+		static std::string ExtractFilenameOutput(std::string_view _buffer);
 
 		static std::string ExtractLicenseOfFile(std::vector <WordTranslate>& _dictionary);
 

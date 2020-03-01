@@ -33,9 +33,9 @@ void Pocon::Writable::CreateFileStruct()
 	document.LinkEndChild(new Ana::Element("LanguageInject"));
 }
 
-void Pocon::Writable::SaveFileInFormatXml()
+void Pocon::Writable::SaveFileInFormatXml(std::string_view _filenameOutput)
 {
-	document.SaveFile("Out.xml");
+	document.SaveFile(_filenameOutput.data());
 }
 
 void Pocon::Writable::SetDictionary(const std::vector <WordTranslate>& _dictionary)

@@ -18,6 +18,9 @@ void Xml::ConvertBufferToXml(const std::filesystem::path& filename)
 
 	// Get the buffer of file po
 	std::string buffer = GetBuffer();
+	// Filename of output when it will be
+	// processed (will be converted in a file xml).
+	std::string filenameOutput = ExtractFilenameOutput(buffer);
 	// Remove comments of buffer
 	RemoveCommentsOfBuffer(buffer);
 
@@ -107,7 +110,7 @@ void Xml::ConvertBufferToXml(const std::filesystem::path& filename)
 	writer.CreateFileStruct();
 	writer.CreateNameOfElements();
 	writer.CreateElementsAndTranslates();
-	writer.SaveFileInFormatXml();
+	writer.SaveFileInFormatXml(filenameOutput);
 }
 
 void Xml::ClearDictionaryOfTagsUnused(std::vector <WordTranslate>& _dictionary)
@@ -579,4 +582,28 @@ void Xml::FormatLicenseAddNewLine(std::string& _license)
 		// Updated we license
 		_license.append(s);
 	}
+}
+
+std::string Xml::ExtractFilenameOutput(std::string_view _buffer)
+{
+	// Generally the first comment of file .po content this sequence
+	// of characters that indicate that the file .po is translate for
+	// the language X.
+	int positionKeyword = _buffer.find("translation for");
+
+	if (positionKeyword != std::string::npos)
+	{
+		int positionNumberSign = _buffer.rfind('#', positionKeyword);
+
+		// NumberSign + 1: For avoid include the character {#} to string final.
+		// Keyword - NumberSign - 2: For avoid include the characters { t}
+		// to string final.
+		// Keyword - NumberSign: Indicate the length of string final
+		std::string filenameOutput = (std::string)_buffer.substr(positionNumberSign + 1,
+				positionKeyword - positionNumberSign - 2);
+
+		return filenameOutput + ".xml";
+	}
+
+	return "Unknown.xml";
 }
