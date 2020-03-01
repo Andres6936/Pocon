@@ -40,6 +40,8 @@ namespace Pocon
 
 		void ProcessMultiplesFiles();
 
+		void FillListWithFilenames();
+
 		bool IsArgumentsEmpty() const;
 
 		std::string GetFilenameFromArguments() const;

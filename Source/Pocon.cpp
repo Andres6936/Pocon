@@ -124,18 +124,23 @@ void Pocon::Pocon::ProcessMultiplesFiles()
 {
 	if (std::filesystem::exists(directoryName))
 	{
-		using namespace std::filesystem;
-
-		for (const directory_entry& entry : directory_iterator(directoryName))
-		{
-			if (entry.path().extension() == ".po")
-			{
-				listFilenames.emplace_back(entry.path());
-			}
-		}
+		FillListWithFilenames();
 	}
 	else
 	{
 		return;
+	}
+}
+
+void Pocon::Pocon::FillListWithFilenames()
+{
+	using namespace std::filesystem;
+
+	for (const directory_entry& entry : directory_iterator(directoryName))
+	{
+		if (entry.path().extension() == ".po")
+		{
+			listFilenames.emplace_back(entry.path());
+		}
 	}
 }
