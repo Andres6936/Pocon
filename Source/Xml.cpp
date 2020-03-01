@@ -584,23 +584,47 @@ void Xml::FormatLicenseAddNewLine(std::string& _license)
 	}
 }
 
+/**
+ * Auxiliary function, this function avoid the code duplicated.
+ * The function main is ExtractFilenameOutput.
+ *
+ * @param _buffer Buffer of characters where the name of translation will be obtained.
+ * @param positionKeyword The keyword is {translation for} or {translation of}, is
+ *  necessary get the position where it keyword begin {Aka: the character 't'} for
+ *  know where begging to cut the final string.
+ * @return The name of translation, Aka: the translation for X language.
+ */
+inline std::string ExtractNameOfTranslation(std::string_view _buffer, int positionKeyword)
+{
+	int positionNumberSign = _buffer.rfind('#', positionKeyword);
+
+	// NumberSign + 2: For avoid include the characters {# } to final string.
+	// Keyword - NumberSign - 3: For avoid include the characters { t}
+	// to final string.
+	// Keyword - NumberSign: Indicate the length of final string.
+	return (std::string)_buffer.substr(positionNumberSign + 2,
+			positionKeyword - positionNumberSign - 3);
+}
+
 std::string Xml::ExtractFilenameOutput(std::string_view _buffer)
 {
 	// Generally the first comment of file .po content this sequence
-	// of characters that indicate that the file .po is translate for
+	// of characters that indicate that the file .po is translate for/of
 	// the language X.
 	int positionKeyword = _buffer.find("translation for");
 
 	if (positionKeyword != std::string::npos)
 	{
-		int positionNumberSign = _buffer.rfind('#', positionKeyword);
+		std::string filenameOutput = ExtractNameOfTranslation(_buffer, positionKeyword);
 
-		// NumberSign + 2: For avoid include the characters {# } to final string.
-		// Keyword - NumberSign - 3: For avoid include the characters { t}
-		// to final string.
-		// Keyword - NumberSign: Indicate the length of final string.
-		std::string filenameOutput = (std::string)_buffer.substr(positionNumberSign + 2,
-				positionKeyword - positionNumberSign - 3);
+		return filenameOutput + ".xml";
+	}
+
+	positionKeyword = _buffer.find("translation of");
+
+	if (positionKeyword != std::string::npos)
+	{
+		std::string filenameOutput = ExtractNameOfTranslation(_buffer, positionKeyword);
 
 		return filenameOutput + ".xml";
 	}
