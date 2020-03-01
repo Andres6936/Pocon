@@ -590,7 +590,28 @@ void Xml::FormatLicenseAddNewLine(std::string& _license)
 
 /**
  * Auxiliary function, this function avoid the code duplicated.
- * The function main is ExtractFilenameOutput.
+ * The main function is ExtractNameOfTranslation.
+ *
+ * - Deleted characters {.} and { } to end the string.
+ * - Replaced lower letters to Upper letters to begin of the string.
+ *
+ * @param _string Name of translation to clear of characters
+ *  unused and format.
+ */
+void ClearAndFormatNameOfTranslationOfCharactersUnused(std::string& _string)
+{
+	if (_string[_string.size() - 1] == '.' or _string[_string.size() - 1] == ' ')
+	{
+		_string.pop_back();
+	}
+
+	// If the first letter is already upper, nope happen.
+	_string[0] = std::toupper(_string[0]);
+}
+
+/**
+ * Auxiliary function, this function avoid the code duplicated.
+ * The main function is ExtractFilenameOutput.
  *
  * @param _buffer Buffer of characters where the name of translation will be obtained.
  * @param positionKeyword The keyword is {translation for} or {translation of}, is
@@ -598,7 +619,7 @@ void Xml::FormatLicenseAddNewLine(std::string& _license)
  *  know where start to cut the final string.
  * @return The name of translation, Aka: the translation for X language of Y program.
  */
-inline std::string ExtractNameOfTranslation(std::string_view _buffer, int positionKeyword)
+std::string ExtractNameOfTranslation(std::string_view _buffer, int positionKeyword)
 {
 	int positionNumberSign = _buffer.rfind('#', positionKeyword);
 
@@ -634,6 +655,8 @@ inline std::string ExtractNameOfTranslation(std::string_view _buffer, int positi
 		std::string nameOfTranslate = (std::string)_buffer.substr(positionOfWord + 4,
 				positionNewLine - positionOfWord - 4);
 
+		ClearAndFormatNameOfTranslationOfCharactersUnused(nameOfTranslate);
+
 		return nameOfTranslate;
 	}
 
@@ -641,8 +664,12 @@ inline std::string ExtractNameOfTranslation(std::string_view _buffer, int positi
 	// Keyword - NumberSign - 3: For avoid include the characters { t}
 	// to final string.
 	// Keyword - NumberSign: Indicate the length of final string.
-	return (std::string)_buffer.substr(positionNumberSign + 2,
+	std::string nameOfTranslate = (std::string)_buffer.substr(positionNumberSign + 2,
 			positionKeyword - positionNumberSign - 3);
+
+	ClearAndFormatNameOfTranslationOfCharactersUnused(nameOfTranslate);
+
+	return nameOfTranslate;
 }
 
 std::string Xml::ExtractFilenameOutput(std::string_view _buffer)
