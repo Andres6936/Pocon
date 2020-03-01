@@ -595,12 +595,12 @@ std::string Xml::ExtractFilenameOutput(std::string_view _buffer)
 	{
 		int positionNumberSign = _buffer.rfind('#', positionKeyword);
 
-		// NumberSign + 1: For avoid include the character {#} to string final.
-		// Keyword - NumberSign - 2: For avoid include the characters { t}
-		// to string final.
-		// Keyword - NumberSign: Indicate the length of string final
-		std::string filenameOutput = (std::string)_buffer.substr(positionNumberSign + 1,
-				positionKeyword - positionNumberSign - 2);
+		// NumberSign + 2: For avoid include the characters {# } to final string.
+		// Keyword - NumberSign - 3: For avoid include the characters { t}
+		// to final string.
+		// Keyword - NumberSign: Indicate the length of final string.
+		std::string filenameOutput = (std::string)_buffer.substr(positionNumberSign + 2,
+				positionKeyword - positionNumberSign - 3);
 
 		return filenameOutput + ".xml";
 	}

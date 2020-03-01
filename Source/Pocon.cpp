@@ -125,6 +125,11 @@ void Pocon::Pocon::ProcessMultiplesFiles()
 	if (std::filesystem::exists(directoryName))
 	{
 		FillListWithFilenames();
+
+		for (const std::filesystem::path& _filename : listFilenames)
+		{
+			Xml().ConvertBufferToXml(_filename);
+		}
 	}
 	else
 	{
