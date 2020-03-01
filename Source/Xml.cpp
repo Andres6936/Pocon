@@ -85,7 +85,7 @@ void Xml::ConvertBufferToXml(const std::filesystem::path& filename)
 	ClearDictionaryOfTagsUnused(dictionary);
 	// Exist translates that when are clear of tags unused,
 	// these [tags] possibly will be empty.
-	ClearDictionaryOfTagsEmpty(dictionary);
+	ClearDictionaryOfTagsAndWordsEmpty(dictionary);
 
 	// The dictionary content the properties of file. See files .po
 	std::vector <PropertyFile> properties = ExtractPropertiesOfFile(dictionary);
@@ -641,11 +641,12 @@ void Xml::ClearStringOfAsterisk(std::string& _string)
 	RemoveCharInString(_string, '*');
 }
 
-void Xml::ClearDictionaryOfTagsEmpty(std::vector <WordTranslate>& _dictionary)
+void Xml::ClearDictionaryOfTagsAndWordsEmpty(std::vector <WordTranslate>& _dictionary)
 {
 	for (int i = 0; i < _dictionary.size(); ++i)
 	{
-		if (_dictionary[i].first.empty())
+		// Have more probability that the words will be empty that the tag.
+		if (_dictionary[i].second.empty() or _dictionary[i].first.empty())
 		{
 			_dictionary.erase(_dictionary.begin() + i);
 		}

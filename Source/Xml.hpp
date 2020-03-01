@@ -26,7 +26,7 @@ namespace Pocon
 
 		static void ClearDictionaryOfTagsUnused(std::vector <WordTranslate>& _dictionary);
 
-		static void ClearDictionaryOfTagsEmpty(std::vector <WordTranslate>& _dictionary);
+		static void ClearDictionaryOfTagsAndWordsEmpty(std::vector <WordTranslate>& _dictionary);
 
 		static void ClearWordOfTagsUnused(WordTranslate& _word);
 
