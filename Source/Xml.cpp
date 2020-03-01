@@ -725,7 +725,18 @@ std::string Xml::ExtractFilenameOutput(std::string_view _buffer)
 		return filenameOutput + ".xml";
 	}
 
-	return "Unknown.xml";
+	// If no is possible determine a adequate name for the file of output
+	// use the pattern: Unknown{Y}.xml
+	// Where Y represent the amount of files unknowns that we found.
+	static short numberOfFilesUnknown = 1;
+
+	std::string unknownFile = "Unknown";
+	unknownFile += std::to_string(numberOfFilesUnknown);
+	unknownFile += ".xml";
+
+	numberOfFilesUnknown += 1;
+
+	return unknownFile;
 }
 
 void Xml::ClearStringOfAsterisk(std::string& _string)

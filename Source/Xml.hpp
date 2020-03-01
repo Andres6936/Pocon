@@ -66,6 +66,23 @@ namespace Pocon
 
 		static void RemoveStringInString(std::string& _string, const std::string& _coincidence);
 
+		/**
+		 * Extract a possible name (based in the translate) for the file of
+		 * output, if this name not is possible determine use the pattern:
+		 * Unknown{Y}.xml, where Y represent the amount of files unknowns
+		 *
+		 * @note Actually, the method support names unknown to SHORT_MAX (+- 32.000).
+		 *  If the amount of unknown files over this limit, will be produced a
+		 *  overflow and the counter begin from 0, with the consequences of
+		 *  overwrite files already processed.
+		 *
+		 * @param _buffer Generally the buffer that content the comments
+		 *  with meta-information, use for extract an name adequate for
+		 *  the file of output.
+		 *
+		 * @return Name of file output, if no is possible determine,
+		 *  return Unknown{1 - 32.000}.xml
+		 */
 		static std::string ExtractFilenameOutput(std::string_view _buffer);
 
 		static std::string ExtractLicenseOfFile(std::vector <WordTranslate>& _dictionary);
