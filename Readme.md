@@ -9,6 +9,7 @@ Pocon is a program for convert files with extension .po to files with extension 
 - The name of tags is adequate to mean translate
 - Intent determine a possible name for the file [xml] output
 - Deleted tags and translate word empty
+- Convert individual files or multiples files of .po to .xml
 
 #### Problem to solution
 
@@ -19,4 +20,16 @@ to do it automatically.
 
 The program actually, work fine for great part of file .po that Gnome use, the program can
 realize conversions of file po to xml for any program design for Gnome and perhaps for other
-more.  
+more.
+
+#### How to use
+
+Pocon can use for convert individual files or multiples files.
+
+##### Individual files
+
+    > ./Pocon filename=<Path to file> (Without < and >)
+    
+##### Multiples files
+
+    > ./Pocon directory=<Path to directory> (Without < and >)
