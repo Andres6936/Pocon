@@ -711,6 +711,12 @@ void Xml::ClearDictionaryOfTagsAndWordsEmpty(std::vector <WordTranslate>& _dicti
 		if (_dictionary[i].second.empty() or _dictionary[i].first.empty())
 		{
 			_dictionary.erase(_dictionary.begin() + i);
+			// Remember that i always raise to 1 each called, but when an
+			// element in the dictionary is deleted the next element in
+			// the list take the position of element deleted.
+			// Need manage this invariant and rest 1 to i for check correctly
+			// the element that take the position of element deleted.
+			i -= 1;
 		}
 	}
 }
