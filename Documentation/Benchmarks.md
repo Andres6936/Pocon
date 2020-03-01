@@ -8,6 +8,10 @@
 
 > filename=../Files/po/es.po directory=../Files/po/
 
+* The directory used is {po} part of project Zenity.
+* The directory content 196 files.
+* The directory content 91 files po.
+
 ##### Command: uname -a
 
 > Linux Tierra 4.15.0-46-generic #49~16.04.1-Ubuntu SMP Tue Feb 12 17:45:24 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
