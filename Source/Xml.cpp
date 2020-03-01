@@ -639,18 +639,20 @@ std::string ExtractNameOfTranslation(std::string_view _buffer, int positionKeywo
 	// For example, is possible see comment with the keyword of this type:
 	// - # Spanish translate for X program.			(1)
 	// - # Spanish translate of X program.			(2)
-	// - # translate for X program to Spanish.	(3)
-	// - # translate of X program to Spanish.	(4)
+	// - # translate for X program to Spanish.		(3)
+	// - # translate of X program to Spanish.		(4)
+	// - # translate to X. 							(5)
 	// Where X is any program that use files .po for its translates.
-	// This method work fine for the cases 1 and 2, but for the cases 3
-	// and 4 needed an special manage.
+	// This method work fine for the cases 1 and 2, but for the cases 3, 4
+	// and 5 needed an special manage.
 	if (positionKeyword - positionNumberSign <= 2)
 	{
-		// For the cases 3 and 4:
+		// For the cases 3, 4 and 5:
 		// The distance that exist between the character {#} and the
 		// character {t} is of 2 positions.
 
-		// Find the word {to} in the buffer after of the keyword.
+		// Cases 3 and 4 : Find the word {to} in the buffer after of the keyword.
+		// Cases 5: Find the word {to} that will be found before of {translate }.
 		int positionOfWord = _buffer.find(" to ", positionKeyword);
 
 		if (positionOfWord == std::string::npos) return "Unknown";
